@@ -1,1 +1,47 @@
-<h1>サッカーアバウト</h1>
+<!-- ページ全体を白背景（#ffffff）に設定 -->
+<div class="py-5" style="background-color: #ffffff; min-height: 85vh; display: flex; align-items: center;">
+  <div class="container py-4">
+    <div class="row justify-content-center">
+      <div class="col-md-8 text-dark">
+        
+        <div class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-4" style="border-color: #dee2e6 !important;">
+          <h1 class="fw-bold display-5 m-0" style="color: #0f2e22;">
+            About Kicklog
+          </h1>
+          <!-- ロゴ画像：右端に配置 -->
+          <%= image_tag 'kicklog_logo.png', class: 'img-fluid rounded-circle shadow-sm', style: 'max-height: 180px;' %>
+        </div>
+        
+        <!-- リード文 -->
+        <p class="lead mb-5 fs-4 lh-lg" style="color: #212529;">
+          Kicklog（キックログ）は、すべてのサッカープレイヤーが「自分にとって最高の1足」に出会うために生まれた、サッカースパイク特化型の情報共有・レビューサービスです。
+        </p>
+
+        <!-- 特徴ボックス：トップページの下部ボックスと同じ深緑（#0f2e22）で統一 -->
+        <div class="p-4 rounded-4 mb-5 text-white" style="background-color: #0f2e22;">
+          <h3 class="h4 fw-bold mb-4" style="color: #b7e4c7;">🎯 Kicklogが解決すること</h3>
+          
+          <div class="mb-4">
+            <h4 class="h5 fw-bold" style="color: #d8f3dc;">⚽️ 初心者のスパイク選びを迷わせない</h4>
+            <p class="mb-0 text-white-50">
+              メーカーごとの足幅の特徴や、プレースタイルを分かりやすくナビゲートします。
+            </p>
+          </div>
+          
+          <div>
+            <h4 class="h5 fw-bold" style="color: #d8f3dc;">👟 失敗しない買い替えをサポート</h4>
+            <p class="mb-0 text-white-50">
+              実際にそのスパイクを履いているユーザーのリアルなサイズ感や、革の伸び具合、ホールド感などの「生の声（ログ）」をチェックできます。
+            </p>
+          </div>
+        </div>
+
+        <!-- 戻るボタン：白背景に映えるように深緑の枠線ボタンに変更 -->
+        <div class="text-center mt-4">
+          <%= link_to "トップページへ戻る", root_path, class: "btn btn-lg px-4 fw-bold btn-outline-dark", style: "border-color: #0f2e22; color: #0f2e22;" %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
