@@ -1,2 +1,16 @@
-<h1>Posts#index</h1>
-<p>Find me in app/views/posts/index.html.erb</p>
+<div class="container py-5">
+  <h2>投稿一覧</h2>
+  
+  <% @posts.each do |post| %>
+    <div class="card p-3 mb-3">
+      <% if post.image.attached? %>
+        <%= image_tag post.image, style: "max-width: 200px; display: block; margin-bottom: 10px;" %>
+      <% end %>
+      
+      <p>内容: <%= post.content %></p>
+      <p>ブランド: <%= post.brand.name %></p>
+    </div>
+  <% end %>
+  
+  <%= link_to "新規投稿する", new_post_path %>
+</div>

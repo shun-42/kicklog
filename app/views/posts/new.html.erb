@@ -1,2 +1,24 @@
-<h1>Posts#new</h1>
-<p>Find me in app/views/posts/new.html.erb</p>
+<div class="container py-5 text-center">
+  <h2>投稿するメーカーを選んでください</h2>
+  
+  <div class="d-flex justify-content-center mt-4">
+    <% Brand.all.each do |brand| %>
+      <%= link_to brand.name, new_post_path(brand_id: brand.id), class: "btn btn-outline-primary mx-2" %>
+    <% end %>
+  </div>
+
+  <hr class="my-5">
+
+  <% if params[:brand_id].present? %>
+    <h3><%= Brand.find(params[:brand_id]).name %> について投稿</h3>
+    <%= form_with model: @post, local: true, multipart: true do |f| %>
+    <%= f.hidden_field :brand_id, value: params[:brand_id] %>
+    <div class="form-group mt-3">
+      <%= f.file_field :image, class: "form-control" %> <%= f.text_area :content, class: "form-control mt-2", placeholder: "感想を入力" %>
+    </div>
+    <%= f.submit "投稿する", class: "btn btn-primary mt-3" %>
+  <% end %>
+  <% else %>
+    <p class="text-muted">上のボタンからメーカーを選択してください。</p>
+  <% end %>
+</div>

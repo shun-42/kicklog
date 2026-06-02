@@ -8,9 +8,8 @@ Rails.application.routes.draw do
   get 'about' => 'homes#about', as: 'about'
 
   resources :users, only: [:show, :edit, :update]
+  resources :brands, only: [:index]
   
-  # brandsに紐付けてpostsを定義
-  resources :brands, only: [:index] do
-    resources :posts, only: [:index, :new, :create, :show, :edit, :update, :destroy]
-  end
+  # ご提示のURL設計通りにフラットな階層で定義
+  resources :posts, only: [:new, :index, :show, :create, :edit, :update, :destroy]
 end
