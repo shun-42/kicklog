@@ -1,14 +1,14 @@
-<div class="container py-5">
-  <h1>投稿一覧</h1>
-  <% @posts.each do |post| %>
-    <%= link_to post_path(post), class: "text-decoration-none text-dark" do %>
-      <div class="card p-3 mb-3">
-        <% if post.image.attached? %>
-          <%= image_tag post.image, style: "max-width: 200px;" %>
-        <% end %>
-        <p>内容: <%= post.content %></p>
-        <p>ブランド: <%= post.brand.name %></p>
-      </div>
-    <% end %>
-  <% end %>
-</div>
+<h1><%= @brand.name %> の投稿一覧</h1>
+
+<%# 投稿ボタンを追加 %>
+<%= link_to "このブランドに投稿する", new_brand_post_path(@brand), class: "btn btn-primary" %>
+
+<% @posts.each do |post| %>
+  <div class="card mb-3">
+    <div class="card-body">
+      <p><%= post.content %></p>
+    </div>
+  </div>
+<% end %>
+
+<%= link_to "ブランド選択へ戻る", brands_path %>

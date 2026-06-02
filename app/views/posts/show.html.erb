@@ -8,6 +8,6 @@
     <p>内容: <%= @post.content %></p>
   </div>
   <div class="mt-3">
-    <%= link_to "一覧に戻る", posts_path, class: "btn btn-secondary" %>
+    <%= link_to "一覧に戻る", brand_posts_path(@post.brand), class: "btn btn-secondary" %>
   </div>
 </div>
