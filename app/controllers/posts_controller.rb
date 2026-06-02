@@ -4,10 +4,14 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.new(post_params)
+    @post = Post.new(post_params)
+    @post.user = User.first
+    
     if @post.save
-      redirect_to posts_path, notice: "投稿しました！"
+      redirect_to @post, notice: "投稿しました！"
     else
+      # 失敗した理由をログに出力する魔法のコード
+      puts "保存に失敗しました！エラー内容: #{@post.errors.full_messages}"
       render :new
     end
   end
