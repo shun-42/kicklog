@@ -27,6 +27,6 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:content) # 必要なカラムを許可
+    params.require(:post).permit(:content, :image)
   end
 end
