@@ -1,5 +1,5 @@
 class BrandsController < ApplicationController
   def index
-    @brands = Brand.all
+   @brands = Brand.all
   end
 end

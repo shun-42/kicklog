@@ -4,7 +4,8 @@
     <% @brands.each do |brand| %>
       <div class="col-md-4">
         <div class="card p-3 mb-3">
-          <h3><%= brand.name %></h3>
+          <%# ここで brand_posts_path(brand) を使うことで、そのブランド専用のURLが生成されます %>
+          <%= link_to brand.name, brand_posts_path(brand) %>
         </div>
       </div>
     <% end %>

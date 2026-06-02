@@ -1,25 +1,14 @@
-<div class="container py-5 text-center">
-  <h2>投稿するメーカーを選んでください</h2>
-  
-  <div class="d-flex justify-content-center mt-4">
-    <%= link_to "Water Field", new_post_path(brand_id: 1), class: "btn btn-outline-primary mx-2" %>
-    <%= link_to "Stripes", new_post_path(brand_id: 2), class: "btn btn-outline-primary mx-2" %>
-    <%= link_to "victory", new_post_path(brand_id: 3), class: "btn btn-outline-primary mx-2" %>
-  </div>
+<div class="container py-5">
+  <%# どのブランドへの投稿かをタイトルで表示 %>
+  <h2><%= @brand.name %> について投稿</h2>
 
-  <hr class="my-5">
-
-  <% if params[:brand_id].present? %>
-    <h3><%= Brand.find(params[:brand_id]).name %> について投稿</h3>
-    <%= form_with model: @post, local: true, multipart: true do |f| %>
-      <%= f.hidden_field :brand_id, value: params[:brand_id] %>
-      <div class="form-group mt-3">
-        <%= f.file_field :image, class: "form-control" %>
-        <%= f.text_area :content, class: "form-control mt-2", placeholder: "感想を入力" %>
-      </div>
-      <%= f.submit "投稿する", class: "btn btn-primary mt-3" %>
-    <% end %>
-  <% else %>
-    <p class="text-muted">上のボタンからメーカーを選択してください。</p>
+  <%= form_with model: [@brand, @post], local: true do |f| %>
+    <div class="form-group mt-3">
+      <%= f.file_field :image, class: "form-control" %>
+      <%= f.text_area :content, class: "form-control mt-2", placeholder: "感想を入力" %>
+    </div>
+    <%= f.submit "投稿する", class: "btn btn-primary mt-3" %>
   <% end %>
+
+  <%= link_to "メーカー選択へ戻る", brands_path, class: "text-muted mt-3 d-block" %>
 </div>
