@@ -1,12 +1,22 @@
 <div class="container py-5">
-  <%# どのブランドへの投稿かをタイトルで表示 %>
   <h2><%= @brand.name %> について投稿</h2>
 
-  <%= form_with model: [@brand, @post], local: true do |f| %>
+  <%= form_with(model: [@brand, @post], local: true) do |f| %>
     <div class="form-group mt-3">
-      <%= f.file_field :image, class: "form-control" %>
-      <%= f.text_area :content, class: "form-control mt-2", placeholder: "感想を入力" %>
+      <%= f.label :spike_name, "スパイクの名前" %>
+      <%= f.text_field :spike_name, class: "form-control", placeholder: "スパイク名を入力" %>
     </div>
+
+    <div class="form-group mt-3">
+      <%= f.label :content, "感想" %>
+      <%= f.text_area :content, class: "form-control", placeholder: "感想を入力" %>
+    </div>
+
+    <div class="form-group mt-3">
+      <%= f.label :image, "写真" %>
+      <%= f.file_field :image, class: "form-control" %>
+    </div>
+
     <%= f.submit "投稿する", class: "btn btn-primary mt-3" %>
   <% end %>
 
