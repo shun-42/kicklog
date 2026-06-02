@@ -1,1 +1,53 @@
-<h1>サッカー</h1>
+<!-- ページ全体を白背景（#ffffff）に、基本の文字色をダークグレー（#212529）に設定 -->
+<div class="py-5" style="background-color: #ffffff; min-height: 85vh; display: flex; align-items: center;">
+  <div class="container py-4">
+    <div class="row align-items-center justify-content-center">
+      
+      <!-- 左半分：主役のロゴ画像エリア -->
+      <div class="col-lg-6 text-center mb-5 mb-lg-0">
+        <%= image_tag 'kicklog_logo.png', class: 'img-fluid rounded-circle shadow-sm', alt: 'Kicklog Logo', style: 'max-height: 480px; object-fit: contain;' %>
+      </div>
+
+      <!-- 右半分：説明文とログイン・新規登録の操作エリア -->
+      <div class="col-lg-5 offset-lg-1 text-dark">
+        <p class="fs-5 lh-lg mb-4 fw-normal" style="color: #212529;">
+          「これからサッカーを始めたいけれど、どれを選べばいい？」<br>
+          「そろそろ新しいスパイクに買い替えたいけれど、自分に合うモデルは？」<br>
+          Kicklogは、プレイヤーのリアルな声から理想のスパイクを見つけるナビゲーションサイトです。
+        </p>
+        
+        <!-- Aboutボタン：画像通りの深緑（#1b4332）を維持 -->
+        <div class="mt-2 mb-5">
+          <%= link_to "Kicklogについて詳しく知る (About)", about_path, class: "btn btn-lg px-4 fw-bold border-0 shadow-sm text-white", style: "background-color: #1b4332;" %>
+        </div>
+
+        <!-- ログイン・新規登録エリア：画像通りの深緑（#0f2e22）のボックスを維持 -->
+        <div class="p-4 rounded-4 shadow-sm" style="background-color: #0f2e22; border: 1px solid #0f2e22;">
+          <% if user_signed_in? %>
+            <div class="d-flex align-items-center justify-content-between text-white">
+              <div>
+                <span class="small text-white-50 d-block">Welcome back!</span>
+                <strong class="fs-5 text-white"><%= current_user.name %> さん</strong>
+              </div>
+              <div>
+                <%= link_to "マイページ", "#", class: "btn text-white fw-bold me-2", style: "background-color: #2d6a4f;" %>
+                <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-sm btn-outline-danger", data: { confirm: "本当にログアウトしますか？" } %>
+              </div>
+            </div>
+          <% else %>
+            <div>
+              <h3 class="h6 fw-bold mb-3 text-white">さっそく理想の1足を探そう</h3>
+              <div class="d-flex gap-2">
+                <!-- 新規登録ボタン：画像通りの明るめの深緑（#2d6a4f） -->
+                <%= link_to "新規登録（Sign up）", new_user_registration_path, class: "btn w-100 fw-bold text-white shadow-sm" , style: "background-color: #2d6a4f;" %>
+                <!-- ログインボタン：画像通りの白枠線 -->
+                <%= link_to "ログイン（Log in）", new_user_session_path, class: "btn w-100 fw-bold btn-outline-light" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
