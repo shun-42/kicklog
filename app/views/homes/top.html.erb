@@ -31,7 +31,7 @@
               </div>
               <div>
                 <%= link_to "投稿する", brands_path, class: "btn btn-sm btn-light me-2" %>
-                <%= link_to "マイページ", "#", class: "btn text-white fw-bold me-2", style: "background-color: #2d6a4f;" %>
+                <%= link_to "マイページ", user_path(current_user), class: "btn text-white fw-bold me-2", style: "background-color: #2d6a4f;" %>
                 <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-sm btn-outline-danger" %>
               </div>
             </div>
