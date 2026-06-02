@@ -1,14 +1,20 @@
-h1><%= @brand.name %> の投稿一覧</h1>
+<h1><%= @brand.name %> の投稿一覧</h1>
 
 <%= link_to "このブランドに投稿する", new_brand_post_path(@brand), class: "btn btn-primary" %>
 
 <% @posts.each do |post| %>
   <div class="card mb-3 mt-3">
     <div class="card-body">
+
+      <% if post.image.attached? %>
+        <div class="mb-2">
+          <%= image_tag post.image, class: "img-fluid", style: "max-width: 300px; height: auto;" %>
+        </div>
+      <% end %>
+      
       <%# 投稿内容 %>
       <p><%= post.content %></p>
       
-      <%# --- ここに投稿者情報を追加 --- %>
       <div class="border-top pt-2 mt-2 text-muted">
         <small>
           投稿者: <%= post.user.nickname %> （ポジション: <%= post.user.position %>）
