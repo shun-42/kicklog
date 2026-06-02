@@ -1,0 +1,18 @@
+<div class="container py-5">
+  <h2>マイページ</h2>
+  
+  <%# ニックネームを表示するように変更 %>
+  <p>ニックネーム: <%= @user.nickname %></p>
+  
+  <p>登録メールアドレス: <%= @user.email %></p>
+  <p>ポジション: <%= @user.position %></p>
+  
+  <h3>投稿一覧</h3>
+  <% @posts.each do |post| %>
+    <div class="card mb-3">
+      <div class="card-body">
+        <p><%= post.content %></p>
+      </div>
+    </div>
+  <% end %>
+</div>
