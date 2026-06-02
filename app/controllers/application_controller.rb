@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    # 会員登録(sign_up)の際に、nameのデータ操作を許可する
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+    # ニックネームの保存を許可する
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:nickname])
   end
 end

@@ -1,11 +1,12 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   def new
     @post = Post.new
   end
 
   def create
     @post = Post.new(post_params)
-    @post.user = User.first
+    @post.user = current_user
     
     if @post.save
       redirect_to @post, notice: "投稿しました！"

@@ -27,11 +27,12 @@
             <div class="d-flex align-items-center justify-content-between text-white">
               <div>
                 <span class="small text-white-50 d-block">Welcome back!</span>
-                <strong class="fs-5 text-white"><%= current_user.name %> さん</strong>
+                <strong class="fs-5 text-white"><%= current_user.nickname %> さん</strong>
               </div>
               <div>
+                <%= link_to "投稿する", new_post_path, class: "btn btn-sm btn-light me-2" %>
                 <%= link_to "マイページ", "#", class: "btn text-white fw-bold me-2", style: "background-color: #2d6a4f;" %>
-                <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-sm btn-outline-danger", data: { confirm: "本当にログアウトしますか？" } %>
+                <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-sm btn-outline-danger" %>
               </div>
             </div>
           <% else %>
