@@ -1,0 +1,12 @@
+<div class="container py-5">
+  <h2>メーカーを選択してください</h2>
+  <div class="row">
+    <% @brands.each do |brand| %>
+      <div class="col-md-4">
+        <div class="card p-3 mb-3">
+          <h3><%= brand.name %></h3>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
