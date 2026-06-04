@@ -1,0 +1,20 @@
+<header class="p-3 bg-light border-bottom mb-4">
+  <div class="container d-flex justify-content-between align-items-center">
+    <%# 左側：ロゴ %>
+    <%= link_to "Kicklog", root_path, class: "h4 text-dark text-decoration-none fw-bold" %>
+    
+    <%# 右側：ボタンエリア（ms-autoで右側に寄せる） %>
+    <nav class="d-flex gap-3 ms-auto">
+      <% if user_signed_in? %>
+        <%# ログイン時 %>
+        <%= link_to "投稿・レビューを見る", brands_path, class: "btn text-white px-4", style: "background-color: #2d6a4f;" %>
+        <%= link_to "マイページ", user_path(current_user), class: "btn text-white px-4", style: "background-color: #2d6a4f;" %>
+        <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-outline-danger px-4" %>
+      <% else %>
+        <%# ログイン前 %>
+        <%= link_to "新規登録", new_user_registration_path, class: "btn text-white px-4", style: "background-color: #2d6a4f;" %>
+        <%= link_to "ログイン", new_user_session_path, class: "btn text-white px-4", style: "background-color: #2d6a4f;" %>
+      <% end %>
+    </nav>
+  </div>
+</header>
