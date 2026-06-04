@@ -20,6 +20,16 @@
         <small>
           投稿者: <%= post.user.nickname %> （ポジション: <%= post.user.position %>）
         </small>
+
+        <% if post.user == current_user %>
+          <div class="mt-2">
+            <%# 編集ボタンを修正 %>
+            <%= link_to "編集", edit_post_path(post), class: "btn btn-sm btn-outline-secondary" %>
+            
+            <%# 削除ボタンを修正 %>
+            <%= button_to "削除", post_path(post), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-outline-danger" %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
