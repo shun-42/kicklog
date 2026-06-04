@@ -29,10 +29,12 @@ class PostsController < ApplicationController
   def edit
     
     @post = Post.find(params[:id])
+    redirect_to root_path, alert: "権限がありません" unless @post.user == current_user
   end
 
   def update
     @post = Post.find(params[:id])
+    redirect_to root_path, alert: "権限がありません" unless @post.user == current_user
     if @post.update(post_params)
       redirect_to brand_posts_path(@post.brand), notice: "投稿を更新しました！"
     else
@@ -41,11 +43,16 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    post = Post.find(params[:id])
-    post.destroy
-    redirect_to brand_posts_path(post.brand), notice: "削除しました"
+    @post = Post.find(params[:id])
+    # 権限チェックを追加
+    if @post.user == current_user
+      @post.destroy
+      redirect_to brand_posts_path(@post.brand), notice: "削除しました"
+    else
+      redirect_to root_path, alert: "権限がありません"
+    end
   end
-
+  
   def show
   
    @post = Post.find(params[:id])
