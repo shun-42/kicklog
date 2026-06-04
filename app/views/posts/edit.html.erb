@@ -1,2 +1,24 @@
-<h1>Posts#edit</h1>
-<p>Find me in app/views/posts/edit.html.erb</p>
+<div class="container py-5">
+  <h2>投稿を編集する</h2>
+
+  <%= form_with(model: @post, local: true) do |f| %>
+    <div class="form-group mt-3">
+      <%= f.label :spike_name, "スパイクの名前" %>
+      <%= f.text_field :spike_name, class: "form-control" %>
+    </div>
+
+    <div class="form-group mt-3">
+      <%= f.label :content, "感想" %>
+      <%= f.text_area :content, class: "form-control" %>
+    </div>
+
+    <div class="form-group mt-3">
+      <%= f.label :image, "写真" %>
+      <%= f.file_field :image, class: "form-control" %>
+    </div>
+
+    <%= f.submit "更新する", class: "btn btn-primary mt-3" %>
+  <% end %>
+
+  <%= link_to "戻る", brand_posts_path(@post.brand), class: "text-muted mt-3 d-block" %>
+</div>
