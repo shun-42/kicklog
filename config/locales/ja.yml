@@ -4,13 +4,19 @@ ja:
       models:
         user:
           attributes:
+            email:
+              blank: "を入力してください"
+            password:
+              blank: "を入力してください"
             nickname:
               blank: "を入力してください"
             position:
               blank: "を入力してください"
-            email:
+        post:
+          attributes:
+            spike_name:
               blank: "を入力してください"
-            password:
+            content:
               blank: "を入力してください"
     attributes:
       user:
@@ -18,6 +24,9 @@ ja:
         password: "パスワード"
         nickname: "ニックネーム"
         position: "ポジション"
+      post:
+        spike_name: "スパイクの名前"
+        content: "感想"
   errors:
     messages:
       not_saved:
