@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   root to: 'homes#top'
   get 'about' => 'homes#about', as: 'about'
 
-  resources :users, only: [:show, :edit, :update]
+  resources :users, only: [:show, :edit, :update] do
+    member do
+      delete :destroy_account
+    end
+  end
   
   # brandsにpostをネストさせる
   resources :brands, only: [:index, :show] do
