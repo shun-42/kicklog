@@ -24,15 +24,18 @@
         <!-- ログイン・新規登録エリア：画像通りの深緑（#0f2e22）のボックスを維持 -->
         <div class="p-4 rounded-4 shadow-sm" style="background-color: #0f2e22; border: 1px solid #0f2e22;">
           <% if user_signed_in? %>
-            <div class="d-flex align-items-center justify-content-between text-white">
-              <div>
-                <span class="small text-white-50 d-block">Welcome back!</span>
-                <strong class="fs-5 text-white"><%= current_user.nickname %> さん</strong>
+            <div class="card p-4 shadow-sm" style="background-color: #0b3d2b; border: none;">
+              <%# 1. 名前を一番上に配置 %>
+              <div class="text-white mb-3">
+                <p class="mb-0">Welcome back!</p>
+                <h3 class="fw-bold"><%= current_user.nickname %> さん</h3>
               </div>
-              <div>
-                <%= link_to "投稿する", brands_path, class: "btn btn-sm btn-light me-2" %>
-                <%= link_to "マイページ", user_path(current_user), class: "btn text-white fw-bold me-2", style: "background-color: #2d6a4f;" %>
-                <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-sm btn-outline-danger" %>
+
+              <%# 2. ボタンを下に配置。gap-3で間隔を取り、align-items-centerで揃える %>
+              <div class="d-flex gap-3 align-items-center">
+                <%= link_to "投稿・レビューを見る", brands_path, class: "btn text-white fw-bold px-4", style: "background-color: #2d6a4f; min-width: 160px;" %>
+                <%= link_to "マイページ", user_path(current_user), class: "btn text-white fw-bold px-4", style: "background-color: #2d6a4f; min-width: 120px;" %>
+                <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-outline-danger px-4", style: "min-width: 120px;" %>
               </div>
             </div>
           <% else %>
