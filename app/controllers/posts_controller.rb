@@ -41,11 +41,9 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
-    # 削除する前にブランド情報を退避しておきます
-    brand = @post.brand
-    @post.destroy
-    redirect_to brand_posts_path(brand), notice: "投稿を削除しました。"
+    post = Post.find(params[:id])
+    post.destroy
+    redirect_to brand_posts_path(post.brand), notice: "削除しました"
   end
 
   def show
