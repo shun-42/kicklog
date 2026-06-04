@@ -1,17 +1,21 @@
 <div class="container py-5">
-  <h2>マイページ</h2>
-  
-  <%# ニックネームを表示するように変更 %>
-  <p>ニックネーム: <%= @user.nickname %></p>
-  
-  <p>登録メールアドレス: <%= @user.email %></p>
-  <p>ポジション: <%= @user.position %></p>
-  
-  <h3>投稿一覧</h3>
+  <div class="card p-4 shadow-sm mb-4">
+    <h2 class="mb-3">マイページ</h2>
+    <p><strong>ニックネーム:</strong> <%= @user.nickname %></p>
+    <p><strong>登録メールアドレス:</strong> <%= @user.email %></p>
+    <p><strong>ポジション:</strong> <%= @user.position %></p>
+    
+    <%= link_to "プロフィールを編集", edit_user_registration_path, class: "btn btn-outline-success" %>
+    <%= link_to "ホームに戻る", root_path, class: "btn btn-outline-secondary" %>
+  </div>
+
+  <h2 class="mb-3">投稿一覧</h2>
   <% @posts.each do |post| %>
-    <div class="card mb-3">
-      <div class="card-body">
-        <p><%= post.content %></p>
+    <div class="card mb-3 p-3 shadow-sm">
+      <h5><%= post.spike_name %></h5>
+      <p><%= post.content %></p>
+      <div>
+        <%= link_to "詳細を見る", post_path(post), class: "btn btn-sm btn-success text-white" %>
       </div>
     </div>
   <% end %>
