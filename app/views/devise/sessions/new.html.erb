@@ -2,6 +2,12 @@
   <div class="card p-4 shadow-sm" style="width: 100%; max-width: 400px;">
     <h2 class="text-center mb-4">Log in</h2>
 
+    <% if flash[:alert].present? %>
+      <div class="alert alert-danger">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="field mb-3">
         <p><%= f.label :email %></p>

@@ -1,6 +1,16 @@
 <div class="container py-5">
   <h2>投稿を編集する</h2>
 
+  <% if @post.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% @post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <%= form_with(model: @post, local: true) do |f| %>
     <div class="form-group mt-3">
       <%= f.label :spike_name, "スパイクの名前" %>
