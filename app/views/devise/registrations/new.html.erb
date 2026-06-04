@@ -16,8 +16,11 @@
       </div>
 
       <div class="field mb-3">
-        <p><%= f.label :position %></p>
-        <%= f.text_field :position, class: "form-control" %>
+        <%= f.label :position %><br />
+        <%= f.select :position, 
+               ["GK", "DF", "MF", "FW"], 
+               { include_blank: "選択してください" }, 
+               { class: "form-control" } %>
       </div>
 
       <div class="field mb-3">
