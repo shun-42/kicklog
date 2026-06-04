@@ -33,9 +33,7 @@
 
               <%# 2. ボタンを下に配置。gap-3で間隔を取り、align-items-centerで揃える %>
               <div class="d-flex gap-3 align-items-center">
-                <%= link_to "投稿・レビューを見る", brands_path, class: "btn text-white fw-bold px-4", style: "background-color: #2d6a4f; min-width: 160px;" %>
-                <%= link_to "マイページ", user_path(current_user), class: "btn text-white fw-bold px-4", style: "background-color: #2d6a4f; min-width: 120px;" %>
-                <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-outline-danger px-4", style: "min-width: 120px;" %>
+                <%= link_to "投稿・レビューを見る", brands_path, class: "btn text-white fw-bold py-3 px-5", style: "background-color: #2d6a4f; font-size: 1.25rem;" %>
               </div>
             </div>
           <% else %>
@@ -44,8 +42,6 @@
               <div class="d-flex gap-2">
                 <!-- 新規登録ボタン：画像通りの明るめの深緑（#2d6a4f） -->
                 <%= link_to "新規登録（Sign up）", new_user_registration_path, class: "btn w-100 fw-bold text-white shadow-sm" , style: "background-color: #2d6a4f;" %>
-                <!-- ログインボタン：画像通りの白枠線 -->
-                <%= link_to "ログイン（Log in）", new_user_session_path, class: "btn w-100 fw-bold btn-outline-light" %>
               </div>
             </div>
           <% end %>
