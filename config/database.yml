@@ -26,14 +26,14 @@ test:
 production:
   primary:
     <<: *default
-    database: <%= ENV['kicklog'] %>
+    database: <%= ENV['DB_DATABASE'] %>
     adapter: mysql2
     encoding: utf8mb4
     charset: utf8mb4
     collation: utf8mb4_general_ci
-    host: <%= ENV['mysql -h rds-mysql-server.chgcskiei8hn.ap-northeast-1.rds.amazonaws.com -P 3306 -u root -p --ssl-mode=VERIFY_IDENTITY --ssl-ca=./global-bundle.pem'] %>
-    username: <%= ENV['root'] %>
-    password: <%= ENV['Shunsuke0402'] %>
+    host: <%= ENV['DB_HOST'] %>
+    username: <%= ENV['DB_USERNAME'] %>
+    password: <%= ENV['DB_PASSWORD'] %>
   cache:
     <<: *default
     database: storage/production_cache.sqlite3
