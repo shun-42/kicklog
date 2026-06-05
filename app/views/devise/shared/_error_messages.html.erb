@@ -1,0 +1,19 @@
+<% if resource.errors.any? %>
+  <div class="alert alert-danger">
+    <h4 class="alert-heading"><%= resource.errors.count %>件のエラーが発生しました</h4>
+    <ul>
+      <% resource.errors.full_messages.each do |message| %>
+        <% 
+          # ここで強制的に日本語に置換します
+          msg = message
+          msg = msg.gsub("Nickname", "ニックネーム")
+          msg = msg.gsub("Position", "ポジション")
+          msg = msg.gsub("Email", "メールアドレス")
+          msg = msg.gsub("Password", "パスワード")
+          msg = msg.gsub("can't be blank", "を入力してください")
+        %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

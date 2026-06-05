@@ -1,0 +1,38 @@
+ja:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "を入力してください"
+            password:
+              blank: "を入力してください"
+            nickname:
+              blank: "を入力してください"
+            position:
+              blank: "を入力してください"
+        post:
+          attributes:
+            spike_name:
+              blank: "を入力してください"
+            content:
+              blank: "を入力してください"
+    attributes:
+      user:
+        email: "メールアドレス"
+        password: "パスワード"
+        nickname: "ニックネーム"
+        position: "ポジション"
+      post:
+        spike_name: "スパイクの名前"
+        content: "感想"
+  errors:
+    messages:
+      not_saved:
+        one: "1件のエラーが発生しました"
+        other: "%{count}件のエラーが発生しました"
+  devise:
+    failure:
+      not_found_in_database: "メールアドレスまたはパスワードが違います。"
+      invalid: "メールアドレスまたはパスワードが違います。"

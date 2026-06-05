@@ -1,0 +1,30 @@
+<div class="container py-5">
+  <h2 class="mb-4">投稿・閲覧したいメーカーを選択してください</h2>
+  
+  <div class="row g-4"> <%# g-4 でカード間の隙間を調整 %>
+    <% @brands.each do |brand| %>
+      <div class="col-md-4">
+        <%# 背景色の分岐はそのまま %>
+        <% bg_color = case brand.name
+                      when "Water Field" then "bg-primary"
+                      when "victory" then "bg-warning"
+                      else "bg-light"
+                      end %>
+        
+        <%# p-5 にして内側の余白を増やし、ボタン自体を大きくする %>
+        <div class="card p-5 mb-3 <%= bg_color %> shadow position-relative">
+          <%# h3 クラスを追加して文字を大きくし、fw-boldで太く %>
+          <%= link_to brand.name, brand_posts_path(brand), class: "stretched-link h3 fw-bold text-dark text-decoration-none text-center" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <%# ロゴと戻るボタン %>
+  <div class="text-center mt-5">
+    <%= image_tag 'kicklog_logo.png', alt: 'Big Logo', style: 'max-width: 300px;' %>
+    <div class="mt-4">
+      <%= link_to "トップページに戻る", root_path, class: "btn btn-success btn-lg px-5 py-2 fw-bold" %>
+    </div>
+  </div>
+</div>
