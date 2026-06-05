@@ -63,7 +63,6 @@ group :test do
 end
 
 gem 'devise'
-
 gem 'dotenv-rails'
 group :production do
   gem 'mysql2'
