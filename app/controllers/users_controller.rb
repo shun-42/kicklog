@@ -1,11 +1,23 @@
 class UsersController < ApplicationController
-
-  # ログイン必須にするが、showアクションだけは例外にする
-  before_action :authenticate_user!, except: [:show] 
+ 
+  before_action :authenticate_user!
   
-  # 本人確認は show と destroy_account に適用したいが、
-  # show はログインしていなくても見られるようにするなら、以下のように調整が必要です
-  before_action :ensure_correct_user, only: [:edit, :update, :destroy_account]
+  # show も here に追加する
+  before_action :ensure_correct_user, only: [:show, :edit, :update, :destroy_account]
+  # ここに edit と update が定義されているはずです
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to user_path(@user.id), notice: "更新しました。"
+    else
+      render :edit
+    end
+  end
 
   def show
     @user = User.find(params[:id])
@@ -21,9 +33,14 @@ class UsersController < ApplicationController
   private
 
   # 本人確認メソッド
-  def ensure_correct_user
-    # URLのIDとログイン中のユーザーIDを比較
-    # 注意: params[:id]は文字列なので、整数に変換して比較します
+ def ensure_correct_user
+    # 1. ログインしていない場合はログインページへ飛ばす
+    if current_user.nil?
+      redirect_to new_user_session_path, alert: "ログインしてください。"
+      return
+    end
+
+    # 2. ログインしている場合のみ、本人かどうかをチェックする
     if params[:id].to_i != current_user.id
       redirect_to root_path, alert: "他人のデータにはアクセスできません。"
     end
