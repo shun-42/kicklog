@@ -1,7 +1,8 @@
 class PostsController < ApplicationController
-
-  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
+  
   skip_before_action :authenticate_user!, only: [:index, :show]
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
+  
 
   def index
     
