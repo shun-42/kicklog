@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
 
-  # 1. ログインしていない場合はログイン画面へ飛ばす
-  before_action :authenticate_user!
+  # ログイン必須にするが、showアクションだけは例外にする
+  before_action :authenticate_user!, except: [:show] 
   
-  # 2. 本人確認用のメソッドを呼び出す（show と destroy_account に適用）
-  before_action :ensure_correct_user, only: [:show, :destroy_account]
+  # 本人確認は show と destroy_account に適用したいが、
+  # show はログインしていなくても見られるようにするなら、以下のように調整が必要です
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy_account]
 
   def show
     @user = User.find(params[:id])
