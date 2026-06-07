@@ -1,10 +1,11 @@
 class PostsController < ApplicationController
   
   
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+ before_action :authenticate_user!, only: [:index, :new, :create, :show, :edit, :update, :destroy]
   
   # 本人確認は編集・更新・削除のみ
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
+  
   def index
     
     @brand = Brand.find(params[:brand_id])
