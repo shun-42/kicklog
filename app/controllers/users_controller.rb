@@ -2,9 +2,8 @@ class UsersController < ApplicationController
  
   before_action :authenticate_user!
   
-  # show も here に追加する
-  before_action :ensure_correct_user, only: [:show, :edit, :update, :destroy_account]
-  # ここに edit と update が定義されているはずです
+ 
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy_account]
 
   def edit
     @user = User.find(params[:id])
@@ -22,16 +21,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @posts = @user.posts
-    if @user != current_user
-    # 自分のマイページへ強制的にリダイレクトさせる
-    redirect_to user_path(current_user), alert: "他のユーザーのページにはアクセスできません。"
-    return # 以降の処理を停止する
-    
   end
   
-  # 3. 自分自身であれば、そのまま表示する
-  @posts = @user.posts
-  end
+  
 
   def destroy_account
     @user = User.find(params[:id])
@@ -53,6 +45,15 @@ class UsersController < ApplicationController
     # 2. ログインしている場合のみ、本人かどうかをチェックする
     if params[:id].to_i != current_user.id
       redirect_to root_path, alert: "他人のデータにはアクセスできません。"
+    end
+  end
+
+  def ensure_correct_user
+    @user = User.find(params[:id])
+    # もしログインしているユーザーと、アクセスしようとしているIDが違ったら
+    unless @user == current_user
+      # マイページ（ログインユーザー自身のページ）へリダイレクト
+      redirect_to user_path(current_user), alert: "他のユーザーの編集はできません。"
     end
   end
 

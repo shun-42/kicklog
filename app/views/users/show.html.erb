@@ -5,16 +5,20 @@
     <p><strong>登録メールアドレス:</strong> <%= @user.email %></p>
     <p><strong>ポジション:</strong> <%= @user.position %></p>
     
+    <% if @user == current_user %>
     <%= link_to "プロフィールを編集", edit_user_registration_path, class: "btn btn-outline-success" %>
+  <% end %>
     <%= link_to "ホームに戻る", root_path, class: "btn btn-outline-secondary" %>
   </div>
-  <div class="mt-5 text-center">
-    <%= button_to '退会する', destroy_account_user_path(@user), 
-    method: :delete, 
-    onclick: "if(!confirm('本当に退会してもよろしいですか？')) return false;", 
-    form: { data: { turbo: false } }, 
-    class: 'btn btn-danger' %>
-  </div>
+  <% if @user == current_user %>
+    <div class="mt-5 text-center">
+      <%= button_to '退会する', destroy_account_user_path(@user), 
+          method: :delete, 
+          onclick: "if(!confirm('本当に退会してもよろしいですか？')) return false;", 
+          form: { data: { turbo: false } }, 
+          class: 'btn btn-danger' %>
+    </div>
+  <% end %>
 
   <h2 class="mb-3">投稿一覧</h2>
   <% @posts.each do |post| %>
