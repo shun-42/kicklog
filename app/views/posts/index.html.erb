@@ -20,7 +20,7 @@
       
       <div class="border-top pt-2 mt-2 text-muted">
         <small>
-          投稿者: <%= post.user.nickname %> （ポジション: <%= post.user.position %>）
+          投稿者: <%= link_to post.user.nickname, user_path(post.user) %> （ポジション: <%= post.user.position %>）
         </small>
 
         <% if post.user == current_user %>
