@@ -22,7 +22,17 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @posts = @user.posts
+    if @user != current_user
+    # 自分のマイページへ強制的にリダイレクトさせる
+    redirect_to user_path(current_user), alert: "他のユーザーのページにはアクセスできません。"
+    return # 以降の処理を停止する
+    
   end
+  
+  # 3. 自分自身であれば、そのまま表示する
+  @posts = @user.posts
+  end
+
   def destroy_account
     @user = User.find(params[:id])
     @user.destroy # 物理削除
