@@ -47,10 +47,10 @@ class PostsController < ApplicationController
 
   def destroy
     @post = Post.find(params[:id])
-    # 権限チェックを追加
     if @post.user == current_user
       @post.destroy
-      redirect_to brand_posts_path(@post.brand), notice: "削除しました"
+      # ★ここをマイページへのパスに変更します
+      redirect_to user_path(current_user), notice: "削除しました"
     else
       redirect_to root_path, alert: "権限がありません"
     end
