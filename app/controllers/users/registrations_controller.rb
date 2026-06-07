@@ -13,15 +13,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
       return
     end
 
-    # もしURLにIDが含まれている場合、そのIDが自分自身かチェックする
-    # ※Deviseのパスは通常IDを含みませんが、もし含める設定にしている場合はここが効きます
+    
     if params[:id].present? && params[:id].to_i != current_user.id
       redirect_to user_path(current_user), alert: "他のユーザーの編集はできません。"
     end
   end
 
   def after_update_path_for(resource)
-    brands_path # 更新後に遷移させたいパス
+    brands_path 
   end
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
