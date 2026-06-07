@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   
  
-  before_action :ensure_correct_user, only: [:edit, :update, :destroy_account]
+  before_action :ensure_correct_user, only: [:show, :edit, :update, :destroy_account]
 
   def edit
     @user = User.find(params[:id])
@@ -21,6 +21,10 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @posts = @user.posts
+    if @user != current_user
+      redirect_to user_path(current_user), alert: "他のユーザーのページにはアクセスできません。"
+      return
+    end
   end
   
   
@@ -50,12 +54,10 @@ class UsersController < ApplicationController
 
   def ensure_correct_user
     @user = User.find(params[:id])
-    # もしログインしているユーザーと、アクセスしようとしているIDが違ったら
+    # 本人以外ならリダイレクトする処理をここに戻します
     unless @user == current_user
-      # マイページ（ログインユーザー自身のページ）へリダイレクト
-      redirect_to user_path(current_user), alert: "他のユーザーの編集はできません。"
+      redirect_to user_path(current_user), alert: "他のユーザーのページにはアクセスできません。"
     end
   end
-
 
 end
