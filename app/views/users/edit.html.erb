@@ -27,6 +27,11 @@
       </div>
 
       <div class="field mb-3">
+        <%= f.label :nickname, "ニックネーム" %><br />
+        <%= f.text_field :nickname, class: "form-control" %>
+      </div>
+
+      <div class="field mb-3">
         <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
         <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
       </div>
