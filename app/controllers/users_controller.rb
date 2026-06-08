@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    ensure_correct_user
   end
 
   def update
@@ -38,24 +39,21 @@ class UsersController < ApplicationController
 
   private
 
+  def user_params
+    params.require(:user).permit(:email, :position, :password, :password_confirmation)
+  end
+
   # 本人確認メソッド
  def ensure_correct_user
-    # 1. ログインしていない場合はログインページへ飛ばす
+    # 1. ログインチェック
     if current_user.nil?
       redirect_to new_user_session_path, alert: "ログインしてください。"
       return
     end
 
-    # 2. ログインしている場合のみ、本人かどうかをチェックする
-    if params[:id].to_i != current_user.id
-      redirect_to root_path, alert: "他人のデータにはアクセスできません。"
-    end
-  end
-
-  def ensure_correct_user
-    @user = User.find(params[:id])
-    # 本人以外ならリダイレクトする処理をここに戻します
-    unless @user == current_user
+    # 2. 本人確認（ログインしているユーザーIDとURLのIDが一致するか）
+    # ※Deviseの編集画面などはparams[:id]が来ないこともあるため、IDがある場合のみチェック
+    if params[:id].present? && params[:id].to_i != current_user.id
       redirect_to user_path(current_user), alert: "他のユーザーのページにはアクセスできません。"
     end
   end

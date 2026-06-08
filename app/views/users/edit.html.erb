@@ -1,0 +1,48 @@
+<div style="background-color: #0b3d2b; min-height: 100vh;" class="d-flex align-items-center justify-content-center py-5">
+  <div class="card p-4 shadow-sm" style="width: 100%; max-width: 450px;">
+    <h2 class="text-center mb-4">Edit User</h2>
+
+    <%# resource.errors を @user.errors に変更 %>
+    <% if @user.errors.any? %>
+      <div class="alert alert-danger">
+        <ul>
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%# form_for の url を Deviseのパスではなく user_path(@user) に変更 %>
+    <%= form_for(@user, url: user_path(@user), html: { method: :patch }) do |f| %>
+
+      <div class="field mb-3">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+      </div>
+
+      <div class="field mb-3">
+        <%= f.label :position %><br />
+        <%= f.select :position, ["FW", "MF", "DF", "GK"], {prompt: "選択してください"}, {class: "form-control"} %>
+      </div>
+
+      <div class="field mb-3">
+        <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+      </div>
+
+      <div class="field mb-3">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+      </div>
+
+      <div class="actions mb-3">
+        <%= f.submit "Update", class: "btn btn-dark w-100" %>
+      </div>
+    <% end %>
+    
+    <div class="text-center">
+      <%= link_to "Back", user_path(@user), class: "btn btn-outline-secondary w-100" %>
+    </div>
+  </div>
+</div>
