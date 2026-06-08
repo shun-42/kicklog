@@ -6,8 +6,8 @@
     <p><strong>ポジション:</strong> <%= @user.position %></p>
     
     <% if @user == current_user %>
-    <%= link_to "プロフィールを編集", edit_user_registration_path, class: "btn btn-outline-success" %>
-  <% end %>
+      <%= link_to "プロフィールを編集", edit_user_path(@user), class: "btn btn-outline-success" %>
+    <% end %>
     <%= link_to "ホームに戻る", root_path, class: "btn btn-outline-secondary" %>
   </div>
   <% if @user == current_user %>
