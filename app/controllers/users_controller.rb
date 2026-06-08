@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
+      bypass_sign_in(@user)
       redirect_to brands_path, notice: "更新しました。"
     else
       render :edit
