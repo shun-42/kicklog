@@ -1,0 +1,28 @@
+<%# app/views/posts/search.html.erb %>
+
+<h2>検索結果</h2>
+
+<% if @posts.present? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>スパイク名</th>
+        <th>感想</th>
+        <th>ポジション</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @posts.each do |post| %>
+        <tr>
+          <td><%= post.spike_name %></td>
+          <td><%= post.content %></td>
+          <td><%= post.user.position %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>該当する投稿は見つかりませんでした。</p>
+<% end %>
+
+<%= link_to "一覧に戻る", brand_posts_path(@brand), class: "btn btn-primary" %>

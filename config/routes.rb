@@ -16,5 +16,11 @@ Rails.application.routes.draw do
     resources :posts, only: [:index, :new, :create]
   end
   # brandに属さない操作は個別に
-  resources :posts, only: [:show, :edit, :update, :destroy]
+  resources :posts, only: [:show, :edit, :update, :destroy]do
+    collection do
+        get 'search' # posts/search というURLで検索結果を出す
+    end
+  end
+
+
 end

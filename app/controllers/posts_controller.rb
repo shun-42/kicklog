@@ -62,6 +62,11 @@ class PostsController < ApplicationController
    @post = Post.find(params[:id])
   end
 
+  def search
+    @posts = Post.search_for(params[:content], params[:method], params[:category])
+    @brand = @posts.first.brand if @posts.present?
+  end
+
 
   private
   def ensure_correct_user
@@ -75,6 +80,8 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:content, :image, :spike_name)
   end
+
+  
 
 
 end
