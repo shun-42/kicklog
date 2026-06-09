@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     collection do
         get 'search' # posts/search というURLで検索結果を出す
     end
+    resources :post_comments, only: [:create, :destroy]
   end
 
 

@@ -60,6 +60,7 @@ class PostsController < ApplicationController
   def show
   
    @post = Post.find(params[:id])
+   @post_comment = PostComment.new
   end
 
   def search
@@ -70,18 +71,26 @@ class PostsController < ApplicationController
 
   private
   def ensure_correct_user
-    @post = Post.find(params[:id])
-    # 投稿者とログインユーザーが違ったら一覧へ追い返す
+    @post = Post.find_by(id: params[:id])
+
+    # 1. 投稿自体が存在しない場合
+    if @post.nil?
+      # posts_path は存在しないため、brands_path など存在するものにリダイレクトします
+      redirect_to brands_path, alert: "投稿が見つかりませんでした。"
+      return
+    end
+
+    # 2. 投稿者とログインユーザーが一致しない場合
     unless @post.user == current_user
-      redirect_to brand_posts_path(@post.brand), alert: "権限がありません。"
+      # 権限がない場合は、一覧へ戻すか、トップページへ飛ばすのが安全です
+      redirect_to brands_path, alert: "権限がありません。"
     end
   end
-  
+
   def post_params
     params.require(:post).permit(:content, :image, :spike_name)
   end
 
   
-
 
 end

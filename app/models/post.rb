@@ -2,7 +2,8 @@ class Post < ApplicationRecord
   belongs_to :user
   belongs_to :brand
   has_one_attached :image
-
+  has_many :post_comments, dependent: :destroy
+  
   validates :spike_name, presence: true
   validates :content, presence: true
 
