@@ -2,9 +2,16 @@
 
 <div class="bg-light p-3 mb-4 rounded shadow-sm">
   <%= form_with url: search_posts_path, method: :get, local: true do |f| %>
-    <%= f.text_field :content, placeholder: "検索キーワードを入力" %>
-    <%= f.select :category, options_for_select([["スパイク名で検索", "name"], ["ポジションで検索", "position"]]) %>
-    <%= f.select :method, options_for_select([["完全一致", "perfect"], ["部分一致", "partial"]]) %>
+    
+    <%# 自由入力の text_field を select に変更 %>
+    <%= f.select :content, 
+        options_for_select([["GK", "GK"], ["DF", "DF"], ["MF", "MF"], ["FW", "FW"]]), 
+        { include_blank: "ポジションを選択" } %>
+
+    <%# ポジション検索・完全一致に固定 %>
+    <%= f.hidden_field :category, value: "position" %>
+    <%= f.hidden_field :method, value: "perfect" %>
+    
     <%= f.submit "検索" %>
   <% end %>
 </div>

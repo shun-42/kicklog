@@ -6,6 +6,7 @@
   <table class="table">
     <thead>
       <tr>
+        <th>ブランド名</th>
         <th>スパイク名</th>
         <th>感想</th>
         <th>ポジション</th>
@@ -14,6 +15,7 @@
     <tbody>
       <% @posts.each do |post| %>
         <tr>
+          <td><%= post.brand.name %></td>
           <td><%= post.spike_name %></td>
           <td><%= post.content %></td>
           <td><%= post.user.position %></td>
@@ -25,4 +27,4 @@
   <p>該当する投稿は見つかりませんでした。</p>
 <% end %>
 
-<%= link_to "一覧に戻る", brand_posts_path(@brand), class: "btn btn-primary" %>
+<%= link_to "一覧に戻る", brand_posts_path(params[:brand_id] || Brand.first), class: "btn btn-primary" %>
