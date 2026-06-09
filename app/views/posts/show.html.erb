@@ -7,6 +7,21 @@
     <h4 class="mt-3">ブランド: <%= @post.brand.name %></h4>
     <p>内容: <%= @post.content %></p>
   </div>
+  <h3>コメント</h3>
+  <% @post.post_comments.each do |post_comment| %>
+    <p><%= post_comment.user.nickname %>: <%= post_comment.comment %></p>
+    <% if post_comment.user == current_user %>
+      <%= button_to '削除', post_post_comment_path(@post, post_comment), method: :delete, onclick: "if(!confirm('本当に削除しますか？')) return false;", class: "btn btn-danger" %>
+    <% end %>
+  <% end %>
+
+  <%# コメント投稿フォーム %>
+  <div class="mt-4">
+    <%= form_with model: [@post, PostComment.new], local: true do |f| %>
+      <%= f.text_area :comment, placeholder: "コメントを入力...", class: "form-control" %>
+      <%= f.submit "送信", class: "btn btn-success mt-2" %>
+    <% end %>
+  </div>
   <div class="mt-3">
     <%= link_to '戻る', :back, class: 'btn btn-secondary' %>
   </div>
