@@ -65,7 +65,7 @@ class PostsController < ApplicationController
 
   def search
     @posts = Post.search_for(params[:content], params[:method], params[:category])
-    @brand = @posts.first.brand if @posts.present?
+    @brand = @posts.present? ? @posts.first.brand : nil
   end
 
 
