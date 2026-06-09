@@ -2,7 +2,7 @@
   <h2>投稿詳細</h2>
   <div class="card p-4">
     <% if @post.image.attached? %>
-      <%= image_tag @post.image, style: "max-width: 100%;" %>
+     <%= image_tag @post.image, class: "img-fluid rounded mx-auto d-block", style: "max-width: 400px;" %>
     <% end %>
     <h4 class="mt-3">ブランド: <%= @post.brand.name %></h4>
     <p>内容: <%= @post.content %></p>
