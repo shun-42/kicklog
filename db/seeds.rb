@@ -10,3 +10,7 @@
 Brand.create!(name: 'Water Field')
 Brand.create!(name: 'Stripes')
 Brand.create!(name: 'victory')
+
+Admin.find_or_create_by!(email: "admin@example.com") do |admin|
+  admin.password = "password"
+end
