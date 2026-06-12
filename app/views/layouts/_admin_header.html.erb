@@ -1,0 +1,13 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <%# 管理者トップリンク %>
+      <%= link_to "管理者トップ", admin_root_path, class: "navbar-brand" %>
+
+      <%# 右寄せのログアウトボタン %>
+      <div class="navbar-nav ms-auto">
+        <%= button_to "管理者ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-success" %>
+      </div>
+    </div>
+  </nav>
+</header>

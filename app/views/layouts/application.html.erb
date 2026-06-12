@@ -25,10 +25,15 @@
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
-    
-    <main class="container">
+    <%# admin_signed_in? の代わりに current_admin.present? を使用する %>
+    <% if current_admin.present? %>
+      <%= render "layouts/admin_header" %>
+    <% else %>
+      <%= render "layouts/header" %>
+    <% end %>
+
+    <div class="container">
       <%= yield %>
-    </main>
+    </div>
   </body>
 </html>
