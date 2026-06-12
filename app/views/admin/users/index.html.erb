@@ -17,6 +17,7 @@
           <%# ここが詳細へのリンクです %>
           <%= link_to '詳細を見る', admin_user_path(user) %>
         </td>
+        <td><%= link_to "投稿一覧を見る", admin_user_posts_path(user) %></td>
       </tr>
     <% end %>
   </tbody>
