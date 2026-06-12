@@ -1,0 +1,6 @@
+<h1>管理者トップページ</h1>
+
+<ul>
+  <li><%= link_to "ユーザー管理一覧", admin_users_path %></li>
+  <%= button_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-link" %>
+</ul>

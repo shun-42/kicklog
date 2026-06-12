@@ -1,0 +1,23 @@
+<h1>ユーザー管理一覧</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>ニックネーム</th>
+      <th>詳細リンク</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.nickname %></td>
+        <td>
+          <%# ここが詳細へのリンクです %>
+          <%= link_to '詳細を見る', admin_user_path(user) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

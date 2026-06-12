@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   devise_for :users, controllers: {
   registrations: 'users/registrations'
   }
@@ -21,6 +22,17 @@ Rails.application.routes.draw do
         get 'search' # posts/search というURLで検索結果を出す
     end
     resources :post_comments, only: [:create, :destroy]
+  end
+
+
+  devise_for :admins, path: 'admin', controllers: {
+    sessions: 'admin/sessions'
+  }
+
+  namespace :admin do
+    get "homes/top"
+    root to: 'homes#top'
+    resources :users, only: [:index, :show, :edit, :update, :destroy]
   end
 
   

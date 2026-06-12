@@ -1,0 +1,23 @@
+<h1>ユーザー編集</h1>
+
+<%# エラーメッセージ表示部分 %>
+<% if @user.errors.any? %>
+  <div style="color: red;">
+    <%= @user.errors.count %>件のエラーがあります:
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @user, url: admin_user_path(@user), method: :patch do |f| %>
+  <p>ニックネーム: <%= f.text_field :nickname %></p>
+  <p>メールアドレス: <%= f.email_field :email %></p>
+  <%# ポジション入力欄を追加 %>
+  <p>ポジション: <%= f.text_field :position %></p>
+  <%= f.submit "更新する" %>
+<% end %>
+
+<%= link_to "詳細へ戻る", admin_user_path(@user) %>
