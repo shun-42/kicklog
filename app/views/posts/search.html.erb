@@ -10,6 +10,7 @@
         <th>スパイク名</th>
         <th>感想</th>
         <th>ポジション</th>
+        <th>詳細</th>
       </tr>
     </thead>
     <tbody>
@@ -19,6 +20,7 @@
           <td><%= post.spike_name %></td>
           <td><%= post.content %></td>
           <td><%= post.user.position %></td>
+          <td><%= link_to '詳細', post_path(post), class: 'btn btn-success btn-sm' %></td>
         </tr>
       <% end %>
     </tbody>
