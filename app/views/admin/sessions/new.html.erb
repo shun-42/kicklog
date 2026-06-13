@@ -1,17 +1,28 @@
-<h2>管理者ログイン</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<div class="container text-center mt-5">
+  <div class="mb-4">
+    <%# 画像ファイル名は実際のファイル名に合わせてください %>
+    <%= image_tag 'kicklog_logo.png', alt: 'kicklogロゴ', style: 'max-width: 250px;' %>
   </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+  <h2>管理者ログイン</h2>
 
-  <div class="actions">
-    <%= f.submit "ログイン" %>
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-5">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="field mb-3">
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+        </div>
+
+        <div class="field mb-3">
+          <%= f.label :password %><br />
+          <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "ログイン", class: "btn btn-primary w-100" %>
+        </div>
+      <% end %>
+    </div>
   </div>
-<% end %>
+</div>
