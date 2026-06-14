@@ -1,24 +1,58 @@
 <div class="container py-5">
   <div class="row">
     <div class="col-md-10 mx-auto">
-      <%# ユーザー名のヘッダー %>
       <h2 class="mb-4"><%= @user.nickname %> さんの投稿一覧</h2>
 
-      <%# 投稿がない場合のメッセージ %>
       <% if @posts.any? %>
         <% @posts.each do |post| %>
-          <div class="card mb-4 shadow-sm">
+          <div class="card mb-4 shadow-sm p-3">
+            <%# 写真表示エリア %>
+            <% if post.image.attached? %>
+              <div class="image-wrapper text-center mb-2" style="height: 250px; background-color: #f8f9fa; border-radius: 5px;">
+                <%= image_tag post.image, class: "img-fluid h-100", style: "object-fit: contain;" %>
+              </div>
+            <% end %>
+
             <div class="card-body">
               <h5 class="card-title"><%= post.spike_name %></h5>
               <p class="card-text"><%= post.content %></p>
-              
+
+              <%# 星評価表示エリア %>
+              <% items = [
+                { key: "trap", label: "トラップ" },
+                { key: "kick", label: "キック" },
+                { key: "sprint", label: "スプリント" },
+                { key: "pass_accuracy", label: "パス精度" },
+                { key: "durability", label: "耐久性" }
+              ] %>
+
+              <div class="row mb-3">
+                <% items.each do |item| %>
+                  <div class="col-md-2">
+                    <small><%= item[:label] %></small>
+                    <div id="admin-star-<%= item[:key] %>-<%= post.id %>"></div>
+                  </div>
+                <% end %>
+              </div>
+
+              <script>
+                $(function() {
+                  <% items.each do |item| %>
+                    $('#admin-star-<%= item[:key] %>-<%= post.id %>').raty({
+                      size: 16,
+                      starOff: 'https://cdn.jsdelivr.net/npm/raty-js@2.8.0/lib/images/star-off.png',
+                      starOn: 'https://cdn.jsdelivr.net/npm/raty-js@2.8.0/lib/images/star-on.png',
+                      score: <%= post.send(item[:key]) || 0 %>,
+                      readOnly: true
+                    });
+                  <% end %>
+                });
+              </script>
+
               <%# 管理者用アクションボタン %>
-              <div class="d-flex gap-2">
+              <div class="d-flex gap-2 mt-3">
                 <%= link_to "詳細を見る", admin_user_post_path(@user, post), class: "btn btn-sm btn-success text-white" %>
-                <%= button_to "投稿を削除する", admin_user_post_path(post.user, post), 
-                method: :delete, 
-                onclick: "if(!confirm('本当にこの投稿を削除しますか？')) return false;", 
-                class: "btn btn-danger" %>
+                <%= button_to "投稿を削除する", admin_user_post_path(@user, post), method: :delete, onclick: "if(!confirm('本当にこの投稿を削除しますか？')) return false;", class: "btn btn-sm btn-danger" %>
               </div>
             </div>
           </div>
@@ -27,9 +61,8 @@
         <p>このユーザーにはまだ投稿がありません。</p>
       <% end %>
 
-      <%# 戻るリンク %>
       <div class="mt-4">
-        <%= link_to "ユーザー管理一覧に戻る", admin_users_path, class: "btn btn-secondary" %>
+        <%= link_to "ユーザー管理一覧へ戻る", admin_users_path, class: "btn btn-secondary" %>
       </div>
     </div>
   </div>
