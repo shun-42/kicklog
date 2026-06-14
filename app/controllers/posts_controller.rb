@@ -88,7 +88,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:content, :image, :spike_name)
+    params.require(:post).permit(:content, :image, :spike_name, :trap, :kick, :sprint, :pass_accuracy, :durability)
   end
 
   

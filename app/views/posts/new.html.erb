@@ -27,8 +27,40 @@
       <%= f.file_field :image, class: "form-control" %>
     </div>
 
+    <div class="form-group mt-3">
+      <% fields = { "trap" => "トラップのしやすさ（クッション性）", "kick" => "キック精度（シュート・ロングフィード等）", "sprint" => "スプリント（走りやすさ）", "pass_accuracy" => "パス精度", "durability" => "耐久性・疲れにくさ" } %>
+      
+      <% fields.each do |key, label| %>
+        <div class="mb-3">
+          <label><%= label %></label>
+          <div id="<%= key %>-star"></div>
+          <%= f.hidden_field key.to_sym, id: "#{key}-value" %>
+        </div>
+      <% end %>
+    </div>
+
     <%= f.submit "投稿する", class: "btn btn-primary mt-3" %>
   <% end %>
 
   <%= link_to "メーカー選択へ戻る", brands_path, class: "text-muted mt-3 d-block" %>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/raty-js@2.8.0/lib/jquery.raty.min.js"></script>
+
+<script>
+  $(function() {
+    // 項目リストも更新しました
+    const fields = ["trap", "kick", "sprint", "pass_accuracy", "durability"];
+    fields.forEach(function(field) {
+      $('#' + field + '-star').raty({
+        starOn: 'https://cdn.jsdelivr.net/npm/raty-js@2.8.0/lib/images/star-on.png',
+        starOff: 'https://cdn.jsdelivr.net/npm/raty-js@2.8.0/lib/images/star-off.png',
+        scoreName: 'post[' + field + ']',
+        click: function(score, e) {
+          $('#' + field + '-value').val(score);
+        }
+      });
+    });
+  });
+</script>
