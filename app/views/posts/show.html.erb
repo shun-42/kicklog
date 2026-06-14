@@ -7,6 +7,36 @@
     <h4 class="mt-3">ブランド: <%= @post.brand.name %></h4>
     <h4 class="mt-3">スパイク: <%= @post.spike_name %></h4>
     <p>内容: <%= @post.content %></p>
+    <div class="row mt-4">
+      <%# 各項目を定義 %>
+      <% items = [
+        { key: "trap", label: "トラップのしやすさ（クッション性）" },
+        { key: "kick", label: "キック精度（シュート・ロングフィード等）" },
+        { key: "sprint", label: "スプリント（走りやすさ）" },
+        { key: "pass_accuracy", label: "パス精度" },
+        { key: "durability", label: "耐久性・疲れにくさ" }
+      ] %>
+      
+      <% items.each do |item| %>
+        <div class="col-md-4 mb-3">
+          <label><%= item[:label] %></label>
+          <div id="star-<%= item[:key] %>"></div>
+        </div>
+
+        <script>
+          $(function() {
+            $('#star-<%= item[:key] %>').raty({
+              size: 36,
+              starOff: 'https://cdn.jsdelivr.net/npm/raty-js@2.8.0/lib/images/star-off.png',
+              starOn: 'https://cdn.jsdelivr.net/npm/raty-js@2.8.0/lib/images/star-on.png',
+              // ここでRubyの値をJavaScriptに埋め込む
+              score: <%= @post.send(item[:key]) || 0 %>,
+              readOnly: true
+            });
+          });
+        </script>
+      <% end %>
+    </div>
   </div>
   <h3>コメント</h3>
   <% @post.post_comments.each do |post_comment| %>
