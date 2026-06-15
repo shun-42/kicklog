@@ -7,11 +7,22 @@ class PostsController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
   
   def index
-    
-    @brand = Brand.find(params[:brand_id])
-    @posts = @brand.posts
-  end
+    if params[:brand_id].match?(/^\d+$/)
+      @brand = Brand.find_by(id: params[:brand_id])
+    else
+      # SQLiteで大文字小文字を無視して検索するための記述
+      # LOWER(name) とすることで、名前を小文字に変換してから比較します
+      @brand = Brand.where("LOWER(name) = ?", params[:brand_id].downcase).first
+    end
 
+    if @brand
+      @posts = @brand.posts
+    else
+      flash[:alert] = "ブランド「#{params[:brand_id]}」は見つかりませんでした。"
+      redirect_to root_path
+    end
+  end
+  
   def new
     
     @brand = Brand.find(params[:brand_id])
