@@ -50,14 +50,16 @@
       </div>
 
       <script>
-        $(function() {
+        $(document).on('turbolinks:load', function() {
           <% items.each do |item| %>
+            // IDをより厳密に指定
             $('#star-<%= item[:key] %>-<%= post.id %>').raty({
               size: 16,
+              // 画像へのパスが正しいか確認（assets pathを使うのが確実）
               starOff: 'https://cdn.jsdelivr.net/npm/raty-js@2.8.0/lib/images/star-off.png',
               starOn: 'https://cdn.jsdelivr.net/npm/raty-js@2.8.0/lib/images/star-on.png',
-              // ここを修正！post.send(item[:key]) で直接カラムの値を取得します
-              score: <%= item[:key].present? ? (post.send(item[:key]) || 0) : 0 %>,
+              // Ruby側で値を確実に渡す（.to_f || 0 は安全策として残します）
+              score: <%= post.send(item[:key]).to_f || 0 %>,
               readOnly: true
             });
           <% end %>
