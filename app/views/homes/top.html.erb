@@ -35,6 +35,7 @@
               <%# 2. ボタンを下に配置。gap-3で間隔を取り、align-items-centerで揃える %>
               <div class="d-flex gap-3 align-items-center">
                 <%= link_to "投稿・レビューを見る", brands_path, class: "btn text-white fw-bold py-3 px-5", style: "background-color: #2d6a4f; font-size: 1.25rem;" %>
+                <%= link_to 'スパイク適正AI診断を受ける', new_diagnosis_path, class: 'btn text-white fw-bold py-3 px-5', style: "background-color: #1b4332; font-size: 1.25rem;" %>
               </div>
             </div>
           <% else %>
