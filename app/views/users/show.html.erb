@@ -10,11 +10,12 @@
     <% end %>
     <%= link_to "ホームに戻る", root_path, class: "btn btn-outline-secondary" %>
   </div>
+  
   <% if @user == current_user %>
     <div class="mt-5 text-center">
       <%= button_to '退会する', destroy_account_user_path(@user), 
           method: :delete, 
-          onclick: "if(!confirm('本当に退会してもよろしいですか？')) return false;", 
+          onclick: "return confirm('本当に退会してもよろしいですか？');", 
           form: { data: { turbo: false } }, 
           class: 'btn btn-danger' %>
     </div>
@@ -30,41 +31,24 @@
       <h5><%= post.spike_name %></h5>
       <p><%= post.content %></p>
 
-      <%# 項目定義（詳細画面と同じ！） %>
-      <% items = [
-        { key: "trap", label: "トラップ" },
-        { key: "kick", label: "キック" },
-        { key: "sprint", label: "スプリント" },
-        { key: "pass_accuracy", label: "パス精度" },
-        { key: "durability", label: "耐久性" }
-      ] %>
-
       <div class="row">
-        <% items.each do |item| %>
+        <% [
+          { key: "trap", label: "トラップ" },
+          { key: "kick", label: "キック" },
+          { key: "sprint", label: "スプリント" },
+          { key: "pass_accuracy", label: "パス精度" },
+          { key: "durability", label: "耐久性" }
+        ].each do |item| %>
           <div class="col-md-2">
             <small><%= item[:label] %></small>
-            <%# ★重要：IDに post.id を含めて個別に指定 %>
-            <div id="star-<%= item[:key] %>-<%= post.id %>"></div>
+            <div style="color: #FFD700; font-size: 16px;">
+              <%# 安全に数値を取得し、星を計算して表示 %>
+              <% score = (post.respond_to?(item[:key]) ? post.send(item[:key]).to_i : 0) %>
+              <%= "★" * score %><%= "☆" * (5 - score) %>
+            </div>
           </div>
         <% end %>
       </div>
-
-      <script>
-        $(document).on('turbolinks:load', function() {
-          <% items.each do |item| %>
-            // IDをより厳密に指定
-            $('#star-<%= item[:key] %>-<%= post.id %>').raty({
-              size: 16,
-              // 画像へのパスが正しいか確認（assets pathを使うのが確実）
-              starOff: 'https://cdn.jsdelivr.net/npm/raty-js@2.8.0/lib/images/star-off.png',
-              starOn: 'https://cdn.jsdelivr.net/npm/raty-js@2.8.0/lib/images/star-on.png',
-              // Ruby側で値を確実に渡す（.to_f || 0 は安全策として残します）
-              score: <%= post.send(item[:key]).to_f || 0 %>,
-              readOnly: true
-            });
-          <% end %>
-        });
-      </script>
 
       <div class="mt-2">
         <%= link_to "詳細を見る", post_path(post), class: "btn btn-sm btn-success" %>
