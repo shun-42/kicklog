@@ -1,15 +1,18 @@
 <div class="container py-5">
-  <h2>プレイスタイル診断</h2>
-  <p>最も重視する項目を1つ選んでください。</p>
-
-  <%= form_with url: diagnoses_create_path, method: :post, local: true do |f| %>
-    <div>
-      <%= f.radio_button :preference, "キック精度" %> キック精度<br>
-      <%= f.radio_button :preference, "耐久性" %> 耐久性<br>
-      <%= f.radio_button :preference, "トラップ" %> トラップ<br>
-      <%= f.radio_button :preference, "パス" %> パス<br>
-      <%= f.radio_button :preference, "スピード" %> スピード
+  <h2 class="mb-4">プレイスタイル診断</h2>
+  <p class="mb-4">最も重視する項目を1つ選んでください。</p>
+  <%= form_with url: diagnoses_path, method: :post, local: true do |f| %>
+    <div class="d-flex flex-wrap gap-3 mb-4">
+      <% ["キック精度", "耐久性", "トラップ", "パス", "スピード"].each do |item| %>
+        <%# ラジオボタンのIDをユニークに設定 %>
+        <%= f.radio_button :preference, item, class: "btn-check", id: "preference_#{item}", required: true %>
+        
+        <%# labelのfor属性とradio_buttonのidを一致させることでクリックが反応する %>
+        <%= f.label "preference_#{item}", item, class: "btn btn-outline-success btn-lg px-4 py-3" %>
+      <% end %>
     </div>
-    <%= f.submit "診断する", class: "btn btn-primary mt-3" %>
+    
+    <%= f.submit "診断する", class: "btn btn-lg text-white px-5 py-3", style: "background-color: #2d6a4f;" %>
+    <%= link_to 'トップに戻る', root_path, class: "btn btn-lg text-white px-5 py-3", style: "background-color: #0d6efd;" %>
   <% end %>
 </div>

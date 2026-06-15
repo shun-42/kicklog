@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   get 'diagnoses/new', to: 'diagnoses#new'
   post 'diagnoses/create', to: 'diagnoses#create'
   get 'diagnoses/result', to: 'diagnoses#result'
+
+  resources :diagnoses, only: [:new, :create]
   
   devise_for :users, controllers: {
   registrations: 'users/registrations'
