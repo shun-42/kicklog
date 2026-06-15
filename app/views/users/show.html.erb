@@ -57,7 +57,7 @@
               starOff: 'https://cdn.jsdelivr.net/npm/raty-js@2.8.0/lib/images/star-off.png',
               starOn: 'https://cdn.jsdelivr.net/npm/raty-js@2.8.0/lib/images/star-on.png',
               // ここを修正！post.send(item[:key]) で直接カラムの値を取得します
-              score: <%= post.send(item[:key]) || 0 %>,
+              score: <%= item[:key].present? ? (post.send(item[:key]) || 0) : 0 %>,
               readOnly: true
             });
           <% end %>
