@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get "diagnoses/new"
+  get "diagnoses/create"
+  get "diagnoses/result"
+
+
+  get 'diagnoses/new', to: 'diagnoses#new'
+  post 'diagnoses/create', to: 'diagnoses#create'
+  get 'diagnoses/result', to: 'diagnoses#result'
   
   devise_for :users, controllers: {
   registrations: 'users/registrations'

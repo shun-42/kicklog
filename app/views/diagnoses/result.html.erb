@@ -1,0 +1,8 @@
+<div class="container py-5">
+  <h2>診断結果</h2>
+  <div class="card p-4">
+    <h3>おすすめのブランド: <%= @brand %></h3>
+    <p><%= @result_text %></p>
+    <%= link_to "診断をやり直す", diagnoses_new_path, class: "btn btn-secondary" %>
+  </div>
+</div>
