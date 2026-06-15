@@ -1,0 +1,15 @@
+<div class="container py-5">
+  <h2>プレイスタイル診断</h2>
+  <p>最も重視する項目を1つ選んでください。</p>
+
+  <%= form_with url: diagnoses_create_path, method: :post, local: true do |f| %>
+    <div>
+      <%= f.radio_button :preference, "キック精度" %> キック精度<br>
+      <%= f.radio_button :preference, "耐久性" %> 耐久性<br>
+      <%= f.radio_button :preference, "トラップ" %> トラップ<br>
+      <%= f.radio_button :preference, "パス" %> パス<br>
+      <%= f.radio_button :preference, "スピード" %> スピード
+    </div>
+    <%= f.submit "診断する", class: "btn btn-primary mt-3" %>
+  <% end %>
+</div>
