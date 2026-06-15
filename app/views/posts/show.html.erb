@@ -30,7 +30,7 @@
               starOff: 'https://cdn.jsdelivr.net/npm/raty-js@2.8.0/lib/images/star-off.png',
               starOn: 'https://cdn.jsdelivr.net/npm/raty-js@2.8.0/lib/images/star-on.png',
               // ここでRubyの値をJavaScriptに埋め込む
-              score: <%= @post.send(item[:key]) || 0 %>,
+              score: <%= (@post.respond_to?(item[:key]) && @post.send(item[:key])) ? @post.send(item[:key]) : 0 %>,
               readOnly: true
             });
           });
