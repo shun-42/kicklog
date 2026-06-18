@@ -6,6 +6,7 @@
   <table class="table">
     <thead>
       <tr>
+        <th>投稿者</th>
         <th>ブランド名</th>
         <th>スパイク名</th>
         <th>感想</th>
@@ -16,6 +17,7 @@
     <tbody>
       <% @posts.each do |post| %>
         <tr>
+          <td><%= post.user&.nickname || "ユーザー不明" %></td>
           <td><%= post.brand.name %></td>
           <td><%= post.spike_name %></td>
           <td><%= post.content %></td>
