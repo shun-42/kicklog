@@ -14,8 +14,15 @@
             <% end %>
 
             <div class="card-body">
-              <h5 class="card-title"><%= post.spike_name %></h5>
-              <p class="card-text"><%= post.content %></p>
+              <p class="card-text">
+                <strong>投稿者:</strong> <%= post.user&.nickname || "ユーザー不明" %>
+              </p>
+              <p class="card-text">
+                <strong>スパイク名:</strong> <%= post.spike_name %>
+              </p>
+              <p class="card-text">
+                <strong>投稿内容:</strong> <%= post.content %>
+              </p>
 
               <%# 星評価表示エリア %>
               <% items = [

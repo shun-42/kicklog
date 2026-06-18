@@ -11,7 +11,7 @@
 
     <%# 3. 検索内容（name属性を 'content' に統一） %>
     <%= f.select :content, ["GK", "DF", "MF", "FW"], { include_blank: "選択してください" }, { id: "position-select", class: "search-content" } %>
-    <%= f.select :content, ["ストライカー", "ターゲットマン", "ドリブラー", "パサー", "デュエル", "ビルドアップ", "オーバーラップ", "セービング", "未定"], { include_blank: "選択してください" }, { id: "style-select", class: "search-content", style: "display: none;" } %>
+    <%= f.select :content, ["ストライカー", "ターゲットマン・ポストプレー", "ドリブラー", "パサー", "デュエル・ボール奪取", "ビルドアップ", "オーバーラップ", "セービング", "未定"], { include_blank: "選択してください" }, { id: "style-select", class: "search-content", style: "display: none;" } %>
 
     <%= f.hidden_field :method, value: "perfect" %>
     <%= f.submit "検索" %>
