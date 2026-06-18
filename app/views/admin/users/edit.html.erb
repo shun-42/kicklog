@@ -15,8 +15,8 @@
 <%= form_with model: @user, url: admin_user_path(@user), method: :patch do |f| %>
   <p>ニックネーム: <%= f.text_field :nickname %></p>
   <p>メールアドレス: <%= f.email_field :email %></p>
-  <%# ポジション入力欄を追加 %>
-  <p>ポジション: <%= f.text_field :position %></p>
+  <p>ポジション: <%= f.select :position, ["GK", "DF", "MF", "FW"], { include_blank: "選択してください" } %></p>
+  <p>プレースタイル: <%= f.select :play_style, ["ストライカー", "ターゲットマン・ポストプレー", "ドリブラー", "パサー", "デュエル・ボール奪取", "ビルドアップ", "オーバーラップ", "セービング", "未定"], { include_blank: "選択してください" } %></p>
   <%= f.submit "更新する" %>
 <% end %>
 

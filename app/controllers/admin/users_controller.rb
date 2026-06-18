@@ -32,7 +32,7 @@ class Admin::UsersController < Admin::BaseController
 
   def user_params
     # :position を許可リストに追加しました
-    params.require(:user).permit(:nickname, :email, :position)
+    params.require(:user).permit(:nickname, :email, :position, :play_style)
   end
 
 end
