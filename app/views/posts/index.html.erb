@@ -3,17 +3,15 @@
 <div class="bg-light p-3 mb-4 rounded shadow-sm">
   <%= form_with url: search_posts_path, method: :get, local: true do |f| %>
     
-    <%# 1. カテゴリー選択 %>
-    <%= select_tag :category, options_for_select([["ポジションで検索", "position"], ["スタイルで検索", "play_style"]]), id: "category-select" %>
+    <%# 1. カテゴリー選択（これは f. の外でOK） %>
+    <%= select_tag :category_temp, options_for_select([["ポジションで検索", "position"], ["スタイルで検索", "play_style"]]), id: "category-select" %>
+    
+    <%# 2. サーバーに送る category 値 %>
+    <%= f.hidden_field :category, value: "position", id: "category-hidden" %>
 
-    <%# 2. ポジション用セレクト（初期表示） %>
+    <%# 3. 検索内容（name属性を 'content' に統一） %>
     <%= f.select :content, ["GK", "DF", "MF", "FW"], { include_blank: "選択してください" }, { id: "position-select", class: "search-content" } %>
-
-    <%# 3. スタイル用セレクト（初期は非表示） %>
-    <%= f.select :content, 
-        ["ストライカー（ワンタッチゴール・オフザボール）", "ターゲットマン・ポストプレーヤー", "ドリブラー", "パサー", "デュエル・ボール奪取", "ビルドアップ", "オーバーラップ", "セービング", "未定"], 
-        { include_blank: "選択してください" }, 
-        { id: "style-select", class: "search-content", style: "display: none;" } %>
+    <%= f.select :content, ["ストライカー", "ターゲットマン", "ドリブラー", "パサー", "デュエル", "ビルドアップ", "オーバーラップ", "セービング", "未定"], { include_blank: "選択してください" }, { id: "style-select", class: "search-content", style: "display: none;" } %>
 
     <%= f.hidden_field :method, value: "perfect" %>
     <%= f.submit "検索" %>
@@ -66,8 +64,26 @@
 
 <script>
   document.getElementById('category-select').addEventListener('change', function() {
-    const isPosition = this.value === 'position';
-    document.getElementById('position-select').style.display = isPosition ? 'inline-block' : 'none';
-    document.getElementById('style-select').style.display = isPosition ? 'none' : 'inline-block';
+    const val = this.value;
+    const posSelect = document.getElementById('position-select');
+    const styleSelect = document.getElementById('style-select');
+    
+    document.getElementById('category-hidden').value = val;
+    
+    // 表示切替と無効化（disabled）の切り替え
+    if (val === 'position') {
+      posSelect.style.display = 'inline-block';
+      posSelect.disabled = false; // 有効にする
+      styleSelect.style.display = 'none';
+      styleSelect.disabled = true;  // 無効にする（送信されない）
+    } else {
+      posSelect.style.display = 'none';
+      posSelect.disabled = true;    // 無効にする（送信されない）
+      styleSelect.style.display = 'inline-block';
+      styleSelect.disabled = false; // 有効にする
+    }
   });
+
+  // ページ読み込み時の初期状態をセット
+  document.getElementById('category-select').dispatchEvent(new Event('change'));
 </script>
