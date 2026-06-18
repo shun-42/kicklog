@@ -16,7 +16,12 @@
   <p>ニックネーム: <%= f.text_field :nickname %></p>
   <p>メールアドレス: <%= f.email_field :email %></p>
   <p>ポジション: <%= f.select :position, ["GK", "DF", "MF", "FW"], { include_blank: "選択してください" } %></p>
-  <p>プレースタイル: <%= f.select :play_style, ["ストライカー", "ターゲットマン・ポストプレー", "ドリブラー", "パサー", "デュエル・ボール奪取", "ビルドアップ", "オーバーラップ", "セービング", "未定"], { include_blank: "選択してください" } %></p>
+  <div class="field mb-3">
+    <%= f.label :play_style %><br />
+    <%= f.select :play_style, 
+        ["ストライカー（ワンタッチゴール・オフザボール）", "ターゲットマン・ポストプレーヤー", "ドリブラー", "パサー", "デュエル・ボール奪取", "ビルドアップ", "オーバーラップ", "セービング", "未定"], 
+        { include_blank: "選択してください" } %>
+  </div>
   <%= f.submit "更新する" %>
 <% end %>
 
