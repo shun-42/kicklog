@@ -3,15 +3,19 @@
 <div class="bg-light p-3 mb-4 rounded shadow-sm">
   <%= form_with url: search_posts_path, method: :get, local: true do |f| %>
     
-    <%# 自由入力の text_field を select に変更 %>
-    <%= f.select :content, 
-        options_for_select([["GK", "GK"], ["DF", "DF"], ["MF", "MF"], ["FW", "FW"]]), 
-        { include_blank: "ポジションを選択" } %>
+    <%# 1. カテゴリー選択 %>
+    <%= select_tag :category, options_for_select([["ポジションで検索", "position"], ["スタイルで検索", "play_style"]]), id: "category-select" %>
 
-    <%# ポジション検索・完全一致に固定 %>
-    <%= f.hidden_field :category, value: "position" %>
+    <%# 2. ポジション用セレクト（初期表示） %>
+    <%= f.select :content, ["GK", "DF", "MF", "FW"], { include_blank: "選択してください" }, { id: "position-select", class: "search-content" } %>
+
+    <%# 3. スタイル用セレクト（初期は非表示） %>
+    <%= f.select :content, 
+        ["ストライカー（ワンタッチゴール・オフザボール）", "ターゲットマン・ポストプレーヤー", "ドリブラー", "パサー", "デュエル・ボール奪取", "ビルドアップ", "オーバーラップ", "セービング", "未定"], 
+        { include_blank: "選択してください" }, 
+        { id: "style-select", class: "search-content", style: "display: none;" } %>
+
     <%= f.hidden_field :method, value: "perfect" %>
-    
     <%= f.submit "検索" %>
   <% end %>
 </div>
@@ -36,7 +40,7 @@
       
       <div class="border-top pt-2 mt-2 text-muted">
         <small>
-          投稿者: <%= post.user.nickname %> （ポジション: <%= post.user.position %>）
+          投稿者: <%= post.user.nickname %> （ポジション: <%= post.user.position %>  プレースタイル:<%= post.user.play_style %>)
         </small>
 
         <div class="mt-2">
@@ -59,3 +63,11 @@
 <div class="text-center mt-5 mb-4">
   <%= link_to "トップページに戻る", root_path, class: "btn text-white fw-bold px-4", style: "background-color: #2d6a4f; min-width: 180px;" %>
 </div>
+
+<script>
+  document.getElementById('category-select').addEventListener('change', function() {
+    const isPosition = this.value === 'position';
+    document.getElementById('position-select').style.display = isPosition ? 'inline-block' : 'none';
+    document.getElementById('style-select').style.display = isPosition ? 'none' : 'inline-block';
+  });
+</script>

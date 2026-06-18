@@ -27,6 +27,14 @@
       </div>
 
       <div class="field mb-3">
+        <%= f.label :play_style %><br />
+        <%= f.select :play_style, 
+            ["ストライカー（ワンタッチゴール・オフザボール）", "ターゲットマン・ポストプレーヤー", "ドリブラー", "パサー", "デュエル・ボール奪取", "ビルドアップ", "オーバーラップ", "セービング", "未定"], 
+            { prompt: "選択してください" }, 
+            { class: "form-control" } %>
+      </div>
+
+      <div class="field mb-3">
         <%= f.label :nickname, "ニックネーム" %><br />
         <%= f.text_field :nickname, class: "form-control" %>
       </div>

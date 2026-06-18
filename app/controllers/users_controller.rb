@@ -41,7 +41,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :position, :password, :password_confirmation, :nickname)
+    params.require(:user).permit(:email, :position, :password, :password_confirmation, :nickname, :play_style)
   end
 
   # 本人確認メソッド
