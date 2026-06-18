@@ -1,6 +1,7 @@
 <div class="container py-5">
   <h2 class="mb-4">プレースタイル診断</h2>
   <p class="mb-4">最も重視する項目を1つ選んでください。</p>
+  
   <%= form_with url: diagnoses_path, method: :post, local: true do |f| %>
     <div class="d-flex flex-wrap gap-3 mb-4">
       <% ["キック精度", "耐久性", "トラップ", "パス", "スピード"].each do |item| %>
@@ -12,7 +13,13 @@
       <% end %>
     </div>
     
-    <%= f.submit "診断する", class: "btn btn-lg text-white px-5 py-3", style: "background-color: #2d6a4f;" %>
+    <%# 「診断する」ボタンの背景色をオレンジに変更 (#fd7e14 はBootstrapのorange) %>
+    <%= f.submit "診断する", class: "btn btn-lg text-white px-5 py-3", style: "background-color: #fd7e14;" %>
+    
     <%= link_to 'トップに戻る', root_path, class: "btn btn-lg text-white px-5 py-3", style: "background-color: #0d6efd;" %>
   <% end %>
+</div>
+
+<div class="text-center mt-5">
+    <%= image_tag 'kicklog_logo.png', alt: 'ロゴ', style: 'max-width: 200px;' %>
 </div>
