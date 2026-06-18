@@ -12,6 +12,8 @@ ja:
               blank: "を入力してください"
             position:
               blank: "を入力してください"
+            play_style: 
+              blank: "を入力してください"
         post:
           attributes:
             spike_name:
@@ -24,6 +26,7 @@ ja:
         password: "パスワード"
         nickname: "ニックネーム"
         position: "ポジション"
+        play_style: "プレースタイル"
       post:
         spike_name: "スパイクの名前"
         content: "感想"

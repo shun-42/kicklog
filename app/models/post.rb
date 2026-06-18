@@ -19,6 +19,8 @@ class Post < ApplicationRecord
     elsif category == 'position'
         # ユーザーテーブルと結合（joins）して、ユーザーのポジションを検索する
         Post.joins(:user).where(users: { position: content })
+    elsif category == 'play_style'
+        Post.joins(:user).where(users: { play_style: content })
     else
         Post.all
     end

@@ -8,4 +8,19 @@ class User < ApplicationRecord
 
   validates :nickname, presence: true
   validates :position, presence: true
+
+  PLAY_STYLES = [
+    "ストライカー（ワンタッチゴール・オフザボール）",
+    "ターゲットマン・ポストプレーヤー",
+    "ドリブラー",
+    "パサー",
+    "デュエル・ボール奪取",
+    "ビルドアップ",
+    "オーバーラップ",
+    "セービング",
+    "未定"
+  ].freeze
+
+  validates :play_style, presence: true, inclusion: { in: PLAY_STYLES }
+  
 end
