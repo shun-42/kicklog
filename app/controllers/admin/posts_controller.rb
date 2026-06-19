@@ -35,6 +35,16 @@ class Admin::PostsController < ApplicationController
     redirect_to admin_user_posts_path(user), notice: "投稿を削除しました。"
   end
 
+  def clear_review
+    @post = Post.find(params[:id])
+    # 評価に関わるカラムをすべて nil にして評価をクリアする
+    if @post.update(trap: nil, kick: nil, sprint: nil, pass_accuracy: nil, durability: nil)
+      redirect_to admin_user_posts_path(@post.user), notice: "レビュー評価をクリアしました。"
+    else
+      redirect_to admin_user_posts_path(@post.user), alert: "削除に失敗しました。"
+    end
+  end
+
   private
 
   # Strong Parameters（編集・更新を許可する項目）

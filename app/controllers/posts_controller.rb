@@ -1,24 +1,32 @@
 class PostsController < ApplicationController
   
   
- before_action :authenticate_user!, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:index, :new, :create, :show, :edit, :update, :destroy]
   
   # 本人確認は編集・更新・削除のみ
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
   
   def index
+    # (ブランドの取得処理はそのまま)
     if params[:brand_id].match?(/^\d+$/)
       @brand = Brand.find_by(id: params[:brand_id])
     else
-      # SQLiteで大文字小文字を無視して検索するための記述
-      # LOWER(name) とすることで、名前を小文字に変換してから比較します
       @brand = Brand.where("LOWER(name) = ?", params[:brand_id].downcase).first
     end
 
     if @brand
       @posts = @brand.posts
+      
+      # --- ここから追記 ---
+      # プレースタイルで絞り込む処理を追加
+      if params[:play_style].present?
+        # PostはUserに属しているので、joinsで結合して絞り込みます
+        @posts = @posts.joins(:user).where(users: { play_style: params[:play_style] })
+      end
+      # --- ここまで追記 ---
+      
     else
-      flash[:alert] = "ブランド「#{params[:brand_id]}」は見つかりませんでした。"
+      flash[:alert] = "ブランド「#{params[:brand_id]}」は見つかりませんでした。 "
       redirect_to root_path
     end
   end

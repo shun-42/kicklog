@@ -43,7 +43,11 @@ Rails.application.routes.draw do
     get "homes/top"
     root to: 'homes#top'
     resources :users, only: [:index, :show, :edit, :update, :destroy] do
-      resources :posts, only: [:index, :show, :edit, :update, :destroy]
+      resources :posts, only: [:index, :show, :edit, :update, :destroy] do
+        member do
+          patch :clear_review
+        end
+      end
    end
   end
 
