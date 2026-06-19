@@ -9,7 +9,7 @@ class User < ApplicationRecord
   validates :nickname, presence: true
   validates :position, presence: true
 
-  PLAY_STYLES = [
+  validates :play_style, presence: true, inclusion: { in: [
     "ストライカー（ワンタッチゴール・オフザボール）",
     "ターゲットマン・ポストプレー",
     "ドリブラー",
@@ -19,8 +19,6 @@ class User < ApplicationRecord
     "オーバーラップ",
     "セービング",
     "未定"
-  ].freeze
-
-  validates :play_style, presence: true, inclusion: { in: PLAY_STYLES }
+  ] }
   
 end

@@ -59,6 +59,10 @@
               <%# 管理者用アクションボタン %>
               <div class="d-flex gap-2 mt-3">
                 <%= link_to "詳細を見る", admin_user_post_path(@user, post), class: "btn btn-sm btn-success text-white" %>
+                <%= button_to "評価だけ削除", clear_review_admin_user_post_path(@user, post), 
+                method: :patch, 
+                class: "btn btn-sm btn-warning", 
+                onclick: "return confirm('この投稿の評価（星・内容）のみを削除しますか？')" %>
                 <%= button_to "投稿を削除する", admin_user_post_path(@user, post), method: :delete, onclick: "if(!confirm('本当にこの投稿を削除しますか？')) return false;", class: "btn btn-sm btn-danger" %>
               </div>
             </div>
