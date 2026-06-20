@@ -3,9 +3,9 @@
   
   <div class="list-group">
     <%# ユーザー管理一覧リンク：ボタン風スタイル %>
-    <%= link_to "ユーザー管理一覧", admin_users_path, class: "list-group-item list-group-item-action mb-2" %>
+    <%= link_to "ユーザー管理一覧", admin_users_path, class: "btn btn-primary mb-5", style: "width: 200px;" %>
     
     <%# ログアウトボタン：2枚目の画像のスタイル（btn-success）を適用 %>
-    <%= button_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-success" %>
+    <%= button_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-success", style: "width: 200px;" %>
   </div>
 </div>
