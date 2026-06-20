@@ -31,6 +31,10 @@
     </div>
   </div>
 
+  <div id="like-btn-<%= @post.id %>">
+    <%= render 'likes/like', post: @post %>
+  </div>
+
   <h3>コメント</h3>
   <% @post.post_comments.each do |post_comment| %>
     <p><%= post_comment.user.nickname %>: <%= post_comment.comment %></p>
