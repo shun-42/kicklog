@@ -59,7 +59,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     redirect_to root_path, alert: "権限がありません" unless @post.user == current_user
     if @post.update(post_params)
-      redirect_to brand_posts_path(@post.brand), notice: "投稿を更新しました！"
+      redirect_to post_path(@post), notice: "投稿を更新しました！"
     else
       render :edit, status: :unprocessable_entity
     end
