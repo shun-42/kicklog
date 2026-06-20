@@ -1,6 +1,6 @@
 <div class="container py-5">
   <div class="card p-4 shadow-sm mb-4">
-    <h2 class="mb-3">マイページ</h2>
+    <h2 class="mb-3">⚽マイページ⚽</h2>
     <p><strong>ニックネーム:</strong> <%= @user.nickname %></p>
     <p><strong>登録メールアドレス:</strong> <%= @user.email %></p>
     <p><strong>ポジション:</strong> <%= @user.position %></p>
@@ -22,7 +22,7 @@
     </div>
   <% end %>
 
-  <h2 class="mb-3">投稿一覧</h2>
+  <h2 class="mb-3">⚽投稿一覧⚽</h2>
   <% @posts.each do |post| %>
     <div class="card p-3 mb-3 shadow-sm">
       <% if post.image.attached? %>
