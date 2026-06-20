@@ -1,9 +1,13 @@
-<div class="d-flex align-items-center gap-2">
-  <span class="badge bg-secondary">参考になった: <%= post.likes.count %></span>
-  
-  <% if post.liked_by?(current_user) %>
-    <%= button_to "❤️", post_likes_path(post), method: :delete, class: "btn btn-outline-danger" %>
-  <% else %>
-    <%= button_to "🤍", post_likes_path(post), method: :post, class: "btn btn-outline-primary" %>
-  <% end %>
-</div>
+<%= turbo_frame_tag dom_id(post, :like) do %>
+  <div class="d-flex align-items-center gap-2">
+    <span class="badge bg-secondary">参考になった: <%= post.likes.count %></span>
+    
+    <% if post.liked_by?(current_user) %>
+      <%# DELETEメソッドで送信 %>
+      <%= button_to "❤️", post_likes_path(post), method: :delete, class: "btn btn-outline-danger" %>
+    <% else %>
+      <%# POSTメソッドで送信 %>
+      <%= button_to "🤍", post_likes_path(post), method: :post, class: "btn btn-outline-primary" %>
+    <% end %>
+  </div>
+<% end %>
