@@ -7,7 +7,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protected
 
   def ensure_correct_user
-    # ログインしていない場合はログイン画面へ
     if current_user.nil?
       redirect_to new_user_session_path
       return
