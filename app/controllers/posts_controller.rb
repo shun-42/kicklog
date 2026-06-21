@@ -16,14 +16,11 @@ class PostsController < ApplicationController
 
     if @brand
       @posts = @brand.posts
-      
-      # --- ここから追記 ---
       # プレースタイルで絞り込む処理を追加
       if params[:play_style].present?
         # PostはUserに属しているので、joinsで結合して絞り込みます
         @posts = @posts.joins(:user).where(users: { play_style: params[:play_style] })
       end
-      # --- ここまで追記 ---
       
     else
       flash[:alert] = "ブランド「#{params[:brand_id]}」は見つかりませんでした。 "
@@ -69,7 +66,6 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     if @post.user == current_user
       @post.destroy
-      # ★ここをマイページへのパスに変更します
       redirect_to user_path(current_user), notice: "削除しました"
     else
       redirect_to root_path, alert: "権限がありません"
@@ -94,14 +90,12 @@ class PostsController < ApplicationController
 
     # 1. 投稿自体が存在しない場合
     if @post.nil?
-      # posts_path は存在しないため、brands_path など存在するものにリダイレクトします
       redirect_to brands_path, alert: "投稿が見つかりませんでした。"
       return
     end
 
     # 2. 投稿者とログインユーザーが一致しない場合
     unless @post.user == current_user
-      # 権限がない場合は、一覧へ戻すか、トップページへ飛ばすのが安全です
       redirect_to brands_path, alert: "権限がありません。"
     end
   end

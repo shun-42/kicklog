@@ -17,11 +17,9 @@ class Admin::PostsController < ApplicationController
   # 4. 投稿更新アクション
   def update
     @post = Post.find(params[:id])
-    # updateメソッドの戻り値を確認し、失敗したらエラーを表示する
     if @post.update(post_params)
       redirect_to admin_user_posts_path(@post.user), notice: "投稿を更新しました"
     else
-      # 失敗したとき、コンソールにエラー内容を出力する
       puts "--- 保存失敗: #{@post.errors.full_messages} ---"
       render :edit
     end
@@ -30,14 +28,14 @@ class Admin::PostsController < ApplicationController
   # 5. 投稿削除アクション
   def destroy
     post = Post.find(params[:id])
-    user = post.user # 削除後に戻るユーザー情報を先に確保
+    user = post.user 
     post.destroy
     redirect_to admin_user_posts_path(user), notice: "投稿を削除しました。"
   end
 
   def clear_review
     @post = Post.find(params[:id])
-    # 評価に関わるカラムをすべて nil にして評価をクリアする
+   
     if @post.update(trap: nil, kick: nil, sprint: nil, pass_accuracy: nil, durability: nil)
       redirect_to admin_user_posts_path(@post.user), notice: "レビュー評価をクリアしました。"
     else
@@ -47,7 +45,7 @@ class Admin::PostsController < ApplicationController
 
   private
 
-  # Strong Parameters（編集・更新を許可する項目）
+ 
   def post_params
     params.require(:post).permit(:content, :image, :spike_name)
   end

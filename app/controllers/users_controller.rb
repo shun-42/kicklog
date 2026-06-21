@@ -33,8 +33,8 @@ class UsersController < ApplicationController
 
   def destroy_account
     @user = User.find(params[:id])
-    @user.destroy # 物理削除
-    reset_session # セッションを完全に破棄してログアウトさせる
+    @user.destroy 
+    reset_session 
     redirect_to new_user_registration_path, notice: "退会が完了しました。ご利用ありがとうございました。"
   end
 
@@ -53,7 +53,6 @@ class UsersController < ApplicationController
     end
 
     # 2. 本人確認（ログインしているユーザーIDとURLのIDが一致するか）
-    # ※Deviseの編集画面などはparams[:id]が来ないこともあるため、IDがある場合のみチェック
     if params[:id].present? && params[:id].to_i != current_user.id
       redirect_to user_path(current_user), alert: "他のユーザーのページにはアクセスできません。"
     end

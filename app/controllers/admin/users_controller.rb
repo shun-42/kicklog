@@ -16,7 +16,6 @@ class Admin::UsersController < Admin::BaseController
     if @user.update(user_params)
       redirect_to admin_user_path(@user), notice: "更新しました"
     else
-      # 失敗した理由をコンソールに出力する
       puts @user.errors.full_messages
       render :edit, status: :unprocessable_entity
     end
@@ -31,7 +30,6 @@ class Admin::UsersController < Admin::BaseController
   private
 
   def user_params
-    # :position を許可リストに追加しました
     params.require(:user).permit(:nickname, :email, :position, :play_style)
   end
 
