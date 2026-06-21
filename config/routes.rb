@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :diagnoses, only: [:new, :create]
   
   devise_for :users, controllers: {
+  sessions: 'users/sessions',
   registrations: 'users/registrations'
   }
   root to: 'homes#top'
