@@ -29,7 +29,12 @@
   </head>
 
   <body>
-    <%# admin_signed_in? の代わりに current_admin.present? を使用する %>
+    <% flash.each do |message_type, message| %>
+      <div class="alert alert-success text-center">
+        <%= message %>
+      </div>
+    <% end %>
+
     <% if current_admin.present? %>
       <%= render "layouts/admin_header" %>
     <% else %>
