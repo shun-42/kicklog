@@ -2,7 +2,22 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
   prepend_before_action :ensure_correct_user, only: [:edit, :update]
-
+  
+  def create
+    build_resource(sign_up_params)
+    
+    if resource.save
+      # 登録成功後、即座にログインさせる
+      sign_in(resource_name, resource)
+      
+      # その後トップへリダイレクト
+      redirect_to root_path, notice: "アカウント登録が完了しました"
+    else
+      clean_up_passwords resource
+      set_minimum_password_length
+      render :new, status: :unprocessable_entity
+    end
+  end
 
   protected
 
