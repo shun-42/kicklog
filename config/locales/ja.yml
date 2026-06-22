@@ -14,6 +14,7 @@ ja:
               blank: "を入力してください"
             play_style: 
               blank: "を入力してください"
+              inclusion: "は一覧から選択してください"
         post:
           attributes:
             spike_name:
