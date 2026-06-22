@@ -49,7 +49,7 @@ class PostsController < ApplicationController
   def edit
     
     @post = Post.find(params[:id])
-    redirect_to root_path, alert: "権限がありません" unless @post.user == current_user
+    redirect_to root_path, notice: "権限がありません" unless @post.user == current_user
   end
 
   def update
@@ -68,7 +68,7 @@ class PostsController < ApplicationController
       @post.destroy
       redirect_to user_path(current_user), notice: "削除しました"
     else
-      redirect_to root_path, alert: "権限がありません"
+      redirect_to root_path, notice: "権限がありません"
     end
   end
   
@@ -90,13 +90,13 @@ class PostsController < ApplicationController
 
     # 1. 投稿自体が存在しない場合
     if @post.nil?
-      redirect_to brands_path, alert: "投稿が見つかりませんでした。"
+      redirect_to brands_path, notice: "投稿が見つかりませんでした。"
       return
     end
 
     # 2. 投稿者とログインユーザーが一致しない場合
     unless @post.user == current_user
-      redirect_to brands_path, alert: "権限がありません。"
+      redirect_to brands_path, notice: "権限がありません。"
     end
   end
 

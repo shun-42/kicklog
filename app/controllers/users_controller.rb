@@ -24,7 +24,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @posts = @user.posts
     if @user != current_user
-      redirect_to user_path(current_user), alert: "他のユーザーのページにはアクセスできません。"
+      redirect_to user_path(current_user), notice: "他のユーザーのページにはアクセスできません。"
       return
     end
   end
@@ -48,13 +48,13 @@ class UsersController < ApplicationController
  def ensure_correct_user
     # 1. ログインチェック
     if current_user.nil?
-      redirect_to new_user_session_path, alert: "ログインしてください。"
+      redirect_to new_user_session_path, notice: "ログインしてください。"
       return
     end
 
     # 2. 本人確認（ログインしているユーザーIDとURLのIDが一致するか）
     if params[:id].present? && params[:id].to_i != current_user.id
-      redirect_to user_path(current_user), alert: "他のユーザーのページにはアクセスできません。"
+      redirect_to user_path(current_user), notice: "他のユーザーのページにはアクセスできません。"
     end
   end
 
