@@ -30,7 +30,8 @@
 
   <body>
     <% flash.each do |message_type, message| %>
-      <div class="alert alert-success text-center">
+      <%# message_type が notice なら alert-success、alert なら alert-danger に変換 %>
+      <div class="alert <%= message_type == 'notice' ? 'alert-success' : 'alert-danger' %> text-center">
         <%= message %>
       </div>
     <% end %>
