@@ -12,7 +12,8 @@ class User < ApplicationRecord
   validates :nickname, presence: true
   validates :position, presence: true
 
-  validates :play_style, presence: true, inclusion: { in: [
+  validates :play_style, inclusion: { 
+  in: [
     "ストライカー（ワンタッチゴール・オフザボール）",
     "ターゲットマン・ポストプレー",
     "ドリブラー",
@@ -22,6 +23,8 @@ class User < ApplicationRecord
     "オーバーラップ",
     "セービング",
     "未定"
-  ] }
+  ],
+  message: "を選択してください" 
+}
   
 end
