@@ -30,6 +30,7 @@ ja:
         nickname: "ニックネーム"
         position: "ポジション"
         play_style: "プレースタイル"
+        password_confirmation: "パスワード確認"
       post:
         spike_name: "スパイクの名前"
         content: "感想"
