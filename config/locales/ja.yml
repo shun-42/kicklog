@@ -4,6 +4,8 @@ ja:
       models:
         user:
           attributes:
+            password_confirmation:
+              confirmation: "とパスワードが一致しません"
             email:
               blank: "を入力してください"
             password:
