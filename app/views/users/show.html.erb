@@ -1,59 +1,78 @@
-<div class="container py-5">
-  <div class="card p-4 shadow-sm mb-4">
-    <h2 class="mb-3">⚽マイページ⚽</h2>
-    <p><strong>ニックネーム:</strong> <%= @user.nickname %></p>
-    <p><strong>登録メールアドレス:</strong> <%= @user.email %></p>
-    <p><strong>ポジション:</strong> <%= @user.position %></p>
-    <p><strong>プレースタイル:</strong> <%= @user.play_style %></p>
+<div class="container py-5 text-center"> 
+  <div class="card p-5 shadow-sm mb-4 rounded"> 
+    <h2 class="mb-4 display-6">⚽マイページ⚽</h2>
+    <div class="lead">
+      <%# fw-normal を追加して、太字を解除します %>
+      <p class="fw-normal"><strong>ニックネーム:</strong> <%= @user.nickname %></p>
+      
+      <% if @user == current_user %>
+        <p class="fw-normal"><strong>登録メールアドレス:</strong> <%= @user.email %></p>
+      <% end %>
+      
+      <p class="fw-normal"><strong>ポジション:</strong> <%= @user.position %></p>
+      <p class="fw-normal"><strong>プレースタイル:</strong> <%= @user.play_style %></p>
+    </div>
     
-    <% if @user == current_user %>
-      <%= link_to "プロフィールを編集", edit_user_path(@user), class: "btn btn-outline-success" %>
-    <% end %>
-    <%= link_to "ホームに戻る", root_path, class: "btn btn-outline-secondary" %>
+    <div class="d-flex justify-content-center gap-2 mt-4"> <% if @user == current_user %>
+        <%# 本人なら編集ボタンとホームに戻るボタン %>
+        <%= link_to "プロフィールを編集", edit_user_path(@user), class: "btn btn-success btn-lg" %>
+        <%= link_to "ホームに戻る", root_path, class: "btn btn-primary btn-lg" %>
+      <% else %>
+        <%# 他人なら「直前にいたページ」に戻る %>
+        <%= link_to "一覧に戻る", request.referer || brands_path, class: "btn btn-secondary btn-lg" %>
+      <% end %>
+    </div>
   </div>
   
+  <%# 本人のみ退会ボタンを表示 %>
   <% if @user == current_user %>
-    <div class="mt-5 text-center">
+    <div class="mt-4 mb-5">
       <%= button_to '退会する', destroy_account_user_path(@user), 
           method: :delete, 
           onclick: "return confirm('本当に退会してもよろしいですか？');", 
           form: { data: { turbo: false } }, 
-          class: 'btn btn-danger' %>
+          class: 'btn btn-outline-danger btn-lg' %>
     </div>
   <% end %>
 
-  <h2 class="mb-3">⚽投稿一覧⚽</h2>
-  <% @posts.each do |post| %>
-    <div class="card p-3 mb-3 shadow-sm">
-      <% if post.image.attached? %>
-        <%= image_tag post.image, size: "180x150", class: "mb-2" %>
-      <% end %>
-
-      <h5><%= post.spike_name %></h5>
-      <p><%= post.content %></p>
-
-      <div class="row">
-        <% [
-          { key: "trap", label: "トラップ" },
-          { key: "kick", label: "キック" },
-          { key: "sprint", label: "スプリント" },
-          { key: "pass_accuracy", label: "パス精度" },
-          { key: "durability", label: "耐久性" }
-        ].each do |item| %>
-          <div class="col-md-2">
-            <small><%= item[:label] %></small>
-            <div style="color: #FFD700; font-size: 16px;">
-              <%# 安全に数値を取得し、星を計算して表示 %>
-              <% score = (post.respond_to?(item[:key]) ? post.send(item[:key]).to_i : 0) %>
-              <%= "★" * score %><%= "☆" * (5 - score) %>
-            </div>
-          </div>
+  <h2 class="mb-4 text-start">⚽投稿一覧⚽</h2>
+  
+  <%# 投稿がある場合のみ表示、ない場合はメッセージを表示 %>
+  <% if @posts.any? %>
+    <% @posts.each do |post| %>
+      <div class="card p-4 mb-3 shadow-sm rounded text-start"> <% if post.image.attached? %>
+          <%= image_tag post.image, size: "180x150", class: "mb-3 rounded" %>
         <% end %>
-      </div>
 
-      <div class="mt-2">
-        <%= link_to "詳細を見る", post_path(post), class: "btn btn-sm btn-success" %>
+        <h5 class="fs-4"><%= post.spike_name %></h5>
+        <p class="fs-5"><%= post.content %></p>
+
+        <div class="row">
+          <% [
+            { key: "trap", label: "トラップ" },
+            { key: "kick", label: "キック" },
+            { key: "sprint", label: "スプリント" },
+            { key: "pass_accuracy", label: "パス精度" },
+            { key: "durability", label: "耐久性" }
+          ].each do |item| %>
+            <div class="col-md-2 col-4">
+              <small class="text-muted"><%= item[:label] %></small>
+              <div style="color: #FFD700; font-size: 18px;">
+                <% score = (post.respond_to?(item[:key]) ? post.send(item[:key]).to_i : 0) %>
+                <%= "★" * score %><%= "☆" * (5 - score) %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="mt-3">
+          <%= link_to "詳細を見る", post_path(post), class: "btn btn-success" %>
+        </div>
       </div>
+    <% end %>
+  <% else %>
+    <div class="text-center p-5 bg-light rounded">
+      <p class="text-muted">まだ投稿がありません。</p>
     </div>
   <% end %>
 </div>
