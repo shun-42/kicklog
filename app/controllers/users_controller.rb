@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   
  
-  before_action :ensure_correct_user, only: [:show, :edit, :update, :destroy_account]
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy_account]
 
   def edit
     @user = User.find(params[:id])
@@ -23,10 +23,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @posts = @user.posts
-    if @user != current_user
-      redirect_to user_path(current_user), notice: "他のユーザーのページにはアクセスできません。"
-      return
-    end
+    
   end
   
   
